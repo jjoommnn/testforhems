@@ -329,25 +329,55 @@ public class Index
     {
     	DefaultCategoryDataset result = new DefaultCategoryDataset();
 
-        result.addValue(20.3, "Product 1 (US)", "Jan 04");
-        result.addValue(0, "Product 1 (Europe)", "Jan 04");
-        result.addValue(0, "Product 1 (Asia)", "Jan 04");
-        result.addValue(0, "Product 1 (Middle East)", "Jan 04");
+        result.addValue(5, "h1", "1");
+        result.addValue(0, "h2", "1");
+        result.addValue(0, "h3", "1");
+        result.addValue(0, "h4", "1");
         
-        result.addValue(0, "Product 1 (US)", "Feb 04");
-        result.addValue(10.9, "Product 1 (Europe)", "Feb 04");
-        result.addValue(0, "Product 1 (Asia)", "Feb 04");
-        result.addValue(0, "Product 1 (Middle East)", "Feb 04");
+        result.addValue(0, "h1", "2");
+        result.addValue(10, "h2", "2");
+        result.addValue(0, "h3", "2");
+        result.addValue(0, "h4", "2");
         
-        result.addValue(0, "Product 1 (US)", "Mar 04");
-        result.addValue(0, "Product 1 (Europe)", "Mar 04");
-        result.addValue(13.7, "Product 1 (Asia)", "Mar 04");
-        result.addValue(0, "Product 1 (Middle East)", "Mar 04");
+        result.addValue(0, "h1", "3");
+        result.addValue(12, "h2", "3");
+        result.addValue(0, "h3", "3");
+        result.addValue(0, "h4", "3");
         
-        result.addValue(21, "Product 1 (US)", "Ap 04");
-        result.addValue(0, "Product 1 (Europe)", "Ap 04");
-        result.addValue(0, "Product 1 (Asia)", "Ap 04");
-        result.addValue(0, "Product 1 (Middle East)", "Ap 04");
+        result.addValue(20.3, "h1", "4");
+        result.addValue(0, "h2", "4");
+        result.addValue(0, "h3", "4");
+        result.addValue(0, "h4", "4");
+        
+        result.addValue(20.3, "h1", "5");
+        result.addValue(0, "h2", "5");
+        result.addValue(0, "h3", "5");
+        result.addValue(0, "h4", "5");
+        
+        result.addValue(20.3, "h1", "6");
+        result.addValue(0, "h2", "6");
+        result.addValue(0, "h3", "6");
+        result.addValue(0, "h4", "6");
+        
+        result.addValue(20.3, "h1", "7");
+        result.addValue(0, "h2", "7");
+        result.addValue(0, "h3", "7");
+        result.addValue(0, "h4", "7");
+        
+        result.addValue(20.3, "h1", "8");
+        result.addValue(0, "h2", "8");
+        result.addValue(0, "h3", "8");
+        result.addValue(0, "h4", "8");
+        
+        result.addValue(20.3, "h1", "9");
+        result.addValue(0, "h2", "9");
+        result.addValue(0, "h3", "9");
+        result.addValue(0, "h4", "9");
+        
+        result.addValue(20.3, "h1", "10");
+        result.addValue(0, "h2", "10");
+        result.addValue(0, "h3", "10");
+        result.addValue(0, "h4", "10");
 
         final JFreeChart chart = ChartFactory.createStackedBarChart(
                 "Stacked Bar Chart Demo 4",  // chart title
@@ -362,10 +392,10 @@ public class Index
             
             GroupedStackedBarRenderer renderer = new GroupedStackedBarRenderer();
             KeyToGroupMap map = new KeyToGroupMap("G1");
-            map.mapKeyToGroup("Product 1 (US)", "G1");
-            map.mapKeyToGroup("Product 1 (Europe)", "G1");
-            map.mapKeyToGroup("Product 1 (Asia)", "G1");
-            map.mapKeyToGroup("Product 1 (Middle East)", "G1");
+            map.mapKeyToGroup("h1", "G1");
+            map.mapKeyToGroup("h2", "G1");
+            map.mapKeyToGroup("h3", "G1");
+            map.mapKeyToGroup("h4", "G1");
             renderer.setSeriesToGroupMap(map); 
             
             renderer.setItemMargin(0.0);
@@ -373,36 +403,29 @@ public class Index
                 0.0f, 0.0f, new Color(0x22, 0x22, 0xFF), 0.0f, 0.0f, new Color(0x88, 0x88, 0xFF)
             );
             renderer.setSeriesPaint(0, p1);
-            renderer.setSeriesPaint(4, p1);
-            renderer.setSeriesPaint(8, p1);
              
             Paint p2 = new GradientPaint(
-                0.0f, 0.0f, new Color(0x22, 0xFF, 0x22), 0.0f, 0.0f, new Color(0x88, 0xFF, 0x88)
+                0.0f, 0.0f, new Color(0x22, 0xAA, 0x22), 0.0f, 0.0f, new Color(0x88, 0xFF, 0x88)
             );
             renderer.setSeriesPaint(1, p2); 
-            renderer.setSeriesPaint(5, p2); 
-            renderer.setSeriesPaint(9, p2); 
             
             Paint p3 = new GradientPaint(
                 0.0f, 0.0f, new Color(0xFF, 0x22, 0x22), 0.0f, 0.0f, new Color(0xFF, 0x88, 0x88)
             );
             renderer.setSeriesPaint(2, p3);
-            renderer.setSeriesPaint(6, p3);
-            renderer.setSeriesPaint(10, p3);
                 
             Paint p4 = new GradientPaint(
                 0.0f, 0.0f, new Color(0xFF, 0xFF, 0x22), 0.0f, 0.0f, new Color(0xFF, 0xFF, 0x88)
             );
             renderer.setSeriesPaint(3, p4);
-            renderer.setSeriesPaint(7, p4);
-            renderer.setSeriesPaint(11, p4);
+            
             renderer.setGradientPaintTransformer(
                 new StandardGradientPaintTransformer(GradientPaintTransformType.HORIZONTAL)
             );
             
             SubCategoryAxis domainAxis = new SubCategoryAxis("Product / Month");
             domainAxis.setCategoryMargin(0.05);
-            domainAxis.addSubCategory("Product 1");
+            //domainAxis.addSubCategory("Product 1");
             
             CategoryPlot plot = (CategoryPlot) chart.getPlot();
             plot.setDomainAxis(domainAxis);
