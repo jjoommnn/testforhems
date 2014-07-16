@@ -3,6 +3,7 @@ package jjoommnn.controller;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GradientPaint;
+import java.awt.Paint;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +18,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.SubCategoryAxis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.DatasetRenderingOrder;
@@ -24,9 +26,13 @@ import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
+import org.jfree.chart.renderer.category.GroupedStackedBarRenderer;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.data.KeyToGroupMap;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.ui.GradientPaintTransformType;
+import org.jfree.ui.StandardGradientPaintTransformer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -82,6 +88,11 @@ public class Index
             
             bOut = new ByteArrayOutputStream();
             ChartUtilities.writeChartAsJPEG( bOut, pieChart(), 400, 300 );
+            jpg = Image.getInstance( bOut.toByteArray() );
+            document.add( jpg );
+            
+            bOut = new ByteArrayOutputStream();
+            ChartUtilities.writeChartAsJPEG( bOut, stackChart(), 400, 300 );
             jpg = Image.getInstance( bOut.toByteArray() );
             document.add( jpg );
         }
@@ -312,5 +323,92 @@ public class Index
             plot.setLabelGap(0.02);
             
         return chart;
+    }
+    
+    private static JFreeChart stackChart()
+    {
+    	DefaultCategoryDataset result = new DefaultCategoryDataset();
+
+        result.addValue(20.3, "Product 1 (US)", "Jan 04");
+        result.addValue(0, "Product 1 (Europe)", "Jan 04");
+        result.addValue(0, "Product 1 (Asia)", "Jan 04");
+        result.addValue(0, "Product 1 (Middle East)", "Jan 04");
+        
+        result.addValue(0, "Product 1 (US)", "Feb 04");
+        result.addValue(10.9, "Product 1 (Europe)", "Feb 04");
+        result.addValue(0, "Product 1 (Asia)", "Feb 04");
+        result.addValue(0, "Product 1 (Middle East)", "Feb 04");
+        
+        result.addValue(0, "Product 1 (US)", "Mar 04");
+        result.addValue(0, "Product 1 (Europe)", "Mar 04");
+        result.addValue(13.7, "Product 1 (Asia)", "Mar 04");
+        result.addValue(0, "Product 1 (Middle East)", "Mar 04");
+        
+        result.addValue(21, "Product 1 (US)", "Ap 04");
+        result.addValue(0, "Product 1 (Europe)", "Ap 04");
+        result.addValue(0, "Product 1 (Asia)", "Ap 04");
+        result.addValue(0, "Product 1 (Middle East)", "Ap 04");
+
+        final JFreeChart chart = ChartFactory.createStackedBarChart(
+                "Stacked Bar Chart Demo 4",  // chart title
+                "Category",                  // domain axis label
+                "Value",                     // range axis label
+                result,                     // data
+                PlotOrientation.VERTICAL,    // the plot orientation
+                true,                        // legend
+                true,                        // tooltips
+                false                        // urls
+            );
+            
+            GroupedStackedBarRenderer renderer = new GroupedStackedBarRenderer();
+            KeyToGroupMap map = new KeyToGroupMap("G1");
+            map.mapKeyToGroup("Product 1 (US)", "G1");
+            map.mapKeyToGroup("Product 1 (Europe)", "G1");
+            map.mapKeyToGroup("Product 1 (Asia)", "G1");
+            map.mapKeyToGroup("Product 1 (Middle East)", "G1");
+            renderer.setSeriesToGroupMap(map); 
+            
+            renderer.setItemMargin(0.0);
+            Paint p1 = new GradientPaint(
+                0.0f, 0.0f, new Color(0x22, 0x22, 0xFF), 0.0f, 0.0f, new Color(0x88, 0x88, 0xFF)
+            );
+            renderer.setSeriesPaint(0, p1);
+            renderer.setSeriesPaint(4, p1);
+            renderer.setSeriesPaint(8, p1);
+             
+            Paint p2 = new GradientPaint(
+                0.0f, 0.0f, new Color(0x22, 0xFF, 0x22), 0.0f, 0.0f, new Color(0x88, 0xFF, 0x88)
+            );
+            renderer.setSeriesPaint(1, p2); 
+            renderer.setSeriesPaint(5, p2); 
+            renderer.setSeriesPaint(9, p2); 
+            
+            Paint p3 = new GradientPaint(
+                0.0f, 0.0f, new Color(0xFF, 0x22, 0x22), 0.0f, 0.0f, new Color(0xFF, 0x88, 0x88)
+            );
+            renderer.setSeriesPaint(2, p3);
+            renderer.setSeriesPaint(6, p3);
+            renderer.setSeriesPaint(10, p3);
+                
+            Paint p4 = new GradientPaint(
+                0.0f, 0.0f, new Color(0xFF, 0xFF, 0x22), 0.0f, 0.0f, new Color(0xFF, 0xFF, 0x88)
+            );
+            renderer.setSeriesPaint(3, p4);
+            renderer.setSeriesPaint(7, p4);
+            renderer.setSeriesPaint(11, p4);
+            renderer.setGradientPaintTransformer(
+                new StandardGradientPaintTransformer(GradientPaintTransformType.HORIZONTAL)
+            );
+            
+            SubCategoryAxis domainAxis = new SubCategoryAxis("Product / Month");
+            domainAxis.setCategoryMargin(0.05);
+            domainAxis.addSubCategory("Product 1");
+            
+            CategoryPlot plot = (CategoryPlot) chart.getPlot();
+            plot.setDomainAxis(domainAxis);
+            //plot.setDomainAxisLocation(AxisLocation.TOP_OR_RIGHT);
+            plot.setRenderer(renderer);
+            
+            return chart;
     }
 }
