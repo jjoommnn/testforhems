@@ -1,0 +1,126 @@
+@charset "utf-8";
+
+body {background:#f0f0f0 url(../images/common/bg_lnb_shadow.gif) left repeat-y;}
+#wrap {width: 100%}
+
+/* gnb */
+.gnbbox {position:absolute;top:70px;width:100%;min-width:1280px;z-index: 1000;}
+.gnbbox .gnb {width:100%;height:44px;position:relative;text-align:center;background-color: #4e4f51;
+				box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.2);
+				-ms-box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.2);
+				-moz-box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.2);
+				-o-box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.2);
+				-webkit-box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.2);}
+.gnbbox .gnb .menu01,
+.gnbbox .gnb .menu02,
+.gnbbox .gnb .menu03,
+.gnbbox .gnb .menu04,
+.gnbbox .gnb .menu05,
+.gnbbox .gnb .menu06 {float:left;padding:5px 15px}
+.gnbbox .gnb .menu01:hover,
+.gnbbox .gnb .menu02:hover,
+.gnbbox .gnb .menu03:hover,
+.gnbbox .gnb .menu04:hover,
+.gnbbox .gnb .menu05:hover,
+.gnbbox .gnb .menu06:hover {background-color:#fff}
+/*
+.gnbbox .gnb .menu01 .m01 {width:106px;height:14px;background:url(../images/common/h2_off_01.gif) center no-repeat}
+.gnbbox .gnb .menu02 .m02 {width:106px;height:15px;background:url(../images/common/h2_off_02.gif) center no-repeat}
+.gnbbox .gnb .menu03 .m03 {width:104px;height:15px;background:url(../images/common/h2_off_03.gif) center no-repeat}
+.gnbbox .gnb .menu04 .m04 {width:126px;height:15px;background:url(../images/common/h2_off_04.gif) center no-repeat}
+.gnbbox .gnb .menu05 .m05 {width:116px;height:15px;background:url(../images/common/h2_off_05.gif) center no-repeat}
+.gnbbox .gnb .menu06 .m06 {width:98px;height:15px;background:url(../images/common/h2_off_06.gif) center no-repeat}
+.gnbbox .gnb .menu01:hover .m01 {background-image:url(../images/common/h2_on_01.gif)}
+.gnbbox .gnb .menu02:hover .m02 {background-image:url(../images/common/h2_on_02.gif)}
+.gnbbox .gnb .menu03:hover .m03 {background-image:url(../images/common/h2_on_03.gif)}
+.gnbbox .gnb .menu04:hover .m04 {background-image:url(../images/common/h2_on_04.gif)}
+.gnbbox .gnb .menu05:hover .m05 {background-image:url(../images/common/h2_on_05.gif)}
+.gnbbox .gnb .menu06:hover .m06 {background-image:url(../images/common/h2_on_06.gif)}
+*/
+.gnbbox .gnb .menu01:hover ul.list a,
+.gnbbox .gnb .menu02:hover ul.list a,
+.gnbbox .gnb .menu03:hover ul.list a,
+.gnbbox .gnb .menu04:hover ul.list a,
+.gnbbox .gnb .menu05:hover ul.list a,
+.gnbbox .gnb .menu06:hover ul.list a {color:#666;}
+.gnbbox .gnb h2 {font-size:0;line-height:0;margin-bottom:20px;text-indent:-1000000px}
+.gnbbox .gnb ul {text-align: left}
+*:first-child+html .gnbbox .gnb h2 {margin-top: 15px}
+.gnbbox .gnb li {display:none;line-height: 26px}
+.gnbbox .gnb li a {display: inline-block;font-family: "돋움",Dotum,Helvetica,AppleGothic,Sans-serif;font-size: 12px;color: #ffffff}
+
+.navbar.navbar.navbar-static-top.type2 .navbar-inner {clear:both;filter:none;min-width:1240px;background-color:#fff;background-image: none}
+*:first-child+html .navbar.navbar.navbar-static-top.type2 .navbar-inner {height:72px;}
+.navbar.navbar.navbar-static-top.type2 .navbar-inner h1 img {vertical-align: top}
+.navbar.navbar.navbar-static-top.type2 .navbar-inner .brand {padding-left:0}
+.navbar-static-top .navbar-inner {border:none}
+.top-info {position:absolute;top: 25px;right:20px;color: #676767;font-size: 13px}
+.top-info span {padding-right:10px;background: url(../images/common/bullet_dash.gif) right center no-repeat;}
+.top-info a {display:inline-block;margin-left: 5px}
+
+/*lnb*/
+#lnb {float:left;width:180px;height:100%;background:#fff}
+#lnb a {font-family: "돋움",Dotum,Helvetica,AppleGothic,Sans-serif;font-size:12px;}
+#lnb .title {position:relative;height:150px;text-align: center;background: url(../images/common/bg_lnb_title.gif) repeat-x;}
+#lnb .title h2 {display:inline-block;margin:0;padding:100px 0 0;width:180px;height:50px;line-height:0}
+#lnb .title h2.m01 {background:url(../images/common/icon_lnb_01.png) center 32px no-repeat}
+#lnb .title h2.m02 {background:url(../images/common/icon_lnb_02.png) center 32px no-repeat}
+#lnb .title h2.m03 {background:url(../images/common/icon_lnb_03.png) center 30px no-repeat}
+#lnb .title h2.m04 {background:url(../images/common/icon_lnb_04.png) center 35px no-repeat}
+#lnb .title h2.m05 {background:url(../images/common/icon_lnb_05.png) center 35px no-repeat}
+#lnb .title h2.fifth {background:url(../images/common/icon_lnb_05.png) center 31px no-repeat}
+#lnb .title h2.m06 {background:url(../images/common/icon_lnb_06.png) center 31px no-repeat}
+#lnb .deps-2 li a {margin:0;padding:12px;color:#666;background:#fff;font-weight:bold;border-bottom:1px solid #f0f0f0;
+					border-radius:0;
+					-moz-border-radius:0;
+					-o-border-radius:0;
+					-webkit-border-radius:0}
+#lnb>.deps-2>.on>a,
+#lnb>.deps-2>.on>a:focus {color:#df2428}
+#lnb .deps-2 li ul.deps-3 {display:block;padding:10px;background:#f0f0f0}
+#lnb .deps-2 li ul.deps-3 li a {padding:0;color:#333;font-weight:normal;padding-left:10px;background:url(../images/common/bullet_lnb_off.gif) 3px 4px no-repeat;}
+#lnb .deps-2 li ul.deps-3 .on a,
+#lnb .deps-2 li ul.deps-3 .on a:focus {color:#df2428;background-image:url(../images/common/bullet_lnb_on.gif)}
+
+/* contents area */
+.admin {margin-top:43px;padding-left:0;position:relative;}
+*:first-child+html .admin {padding-top: 43px}
+.admin>div>.span2 {width:180px !important}
+.admin>div>.span10 {position:absolute;left:190px;min-width:1050px}
+*:first-child+html .admin>div>.span10 {margin-left: 30px}
+.admin .contents {padding:20px;margin-bottom:50px;background-color:#fff}
+.admin .contents.type2 {background:none;padding:0}
+.history {margin:30px 0 10px;color:#a6a7a8}
+.history span {color:#4e4f51}
+h3 {color:#333;margin-bottom:20px;font-size:35px}
+
+/*accordion area*/
+.accordion-con {margin-bottom:20px;padding:0 20px 0;background:#fff}
+.acco-title {position:relative}
+.acco-title a {float:left;display:inline-block;width:23px;height:23px;margin:10px 5px 0;background: url("../images/common/btn_close.gif") no-repeat}
+.acco-title.close2 a {background: url("../images/common/btn_open.gif") no-repeat}
+.acco-title h4 {float:left;font-size:14px;line-height:22px;color:#333333;font-weight:bold;}
+
+.textarea textarea {width:100%;text-align:left;
+					box-sizing:border-box;
+					-webkit-box-sizing:border-box;
+					-moz-box-sizing:border-box;
+					-o-box-sizing:border-box;
+					-ms-box-sizing:border-box;}
+
+/*login*/
+body.login-body {margin:0;padding:0;background-image: url(../images/login/bg_02.jpg);background-position:0 top;background-repeat: repeat-x;background-color:#fff !important;}
+.login-wrap {position:relative;margin:0 auto;padding:0;width:1280px;height:737px;background: url(../images/login/bg_01.jpg) no-repeat;}
+.container-login {float:left;margin:0;padding:0;width:100%;height:100%;background: url(../images/login/img_left.png) 35px 135px no-repeat;}
+.login-title {position:absolute;top:122px;left:674px}
+.login-title h1 span {display:inline-block;vertical-align:top;font-size: 17px;color:#8c8c8c;padding-left:24px;background: url(../images/login/bg_dash.gif) 14px center no-repeat;}
+.login-area {position:absolute;top:292px;left:674px;width:470px;line-height:35px}
+.login-area input[type="text"], input[type="password"] {border:#a9a9a9 4px solid;height: 14px;background: transparent;}
+.login-area select {border:#a9a9a9 4px solid;color:#a9a9a9;}
+.login-area label {width:161px;margin:4px 0 0 4px;color:#cccccc;font-size:13px}
+.login-area button {position: absolute;top:3px;margin-left: 5px}
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    .login-area select {background: transparent url(../images/login/btn_select_login.gif) right center no-repeat;    
+    -webkit-appearance: none;
+    -o-appearance: none;}
+}

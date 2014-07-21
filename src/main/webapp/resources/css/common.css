@@ -1,0 +1,23 @@
+#slide-menu h1{font-size:0}
+#slide-menu{background:#4e4f51}
+#slide-menu .top-info{color:#fff;}
+#slide-menu .top-info a{font-weight:bold;font-size:13px;color:#27b0ff;padding-left:15px;background:url('../../images/hems/bg_top_info.png') no-repeat 5px 6px}
+#slide-menu .gnb{min-height:74px;background:url('../../images/hems/bg_gnb.png') repeat-x;}
+#slide-menu .gnb li{float:left;width:227px;}
+#slide-menu .gnb li:hover{background-color:#59b5e8}
+#slide-menu .gnb li a{color:#fff;font-size:15px;font-weight:bold;display:block;height:55px;text-align:center;padding:20px 0 0 0px;text-decoration:none}
+#slide-menu .gnb li a span{width:33px;height:36px;display:inline-block;vertical-align:middle;margin-right:10px}
+#slide-menu .gnb li.m1 span{background:url('../../images/hems/icon_gnb01.png') no-repeat 0 5px}
+#slide-menu .gnb li.m2 span{background:url('../../images/hems/icon_gnb02.png') no-repeat 0 5px}
+#slide-menu .gnb li.m3 span{background:url('../../images/hems/icon_gnb03.png') no-repeat 0 5px}
+#slide-menu .gnb li.m4 span{background:url('../../images/hems/icon_gnb04.png') no-repeat 0 0px}
+#slide-menu .gnb li.m5 span{background:url('../../images/hems/icon_gnb05.png') no-repeat 0 5px}
+
+.navbar-inner .top-info{color:#fff;}
+.navbar-inner .top-info a{font-weight:bold;font-size:13px;color:#27b0ff;padding-left:15px;background:url('../../images/hems/bg_top_info.png') no-repeat 5px 6px}
+
+
+.gnbbox .slide .btn-slide{background:url('../../images/hems/btn_slide_down.png')no-repeat}
+.gnbbox .slide .btn-slide.slideup{background:url('../../images/hems/btn_slide_up.png')no-repeat}
+
+
