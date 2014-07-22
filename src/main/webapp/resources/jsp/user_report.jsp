@@ -1,4 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="java.util.*"%>
+<%@page import="org.codehaus.jackson.map.ObjectMapper"%>
+<%
+//DB에서 data를 쿼리해 온 후
+
+HashMap data = new HashMap();
+data.put( "month", "SEPTHMBER 2014" );
+data.put( "address", "서울특별시 구로구 구로동 4352번지 푸르지오 103동 1305호 님" );
+data.put( "dateFrom", "2014년 6월 01일" );
+data.put( "dateTo", "06월 30일" );
+data.put( "useFee", "" );
+data.put( "useFeePercent", "" );
+data.put( "useAmount", "" );
+data.put( "useAmountPercent", "" );
+
+ArrayList chartData = new ArrayList();
+chartData.add( new Float( 10 ) ); //지난달
+chartData.add( new Float( 12 ) ); //이번달
+data.put( "chartData", chartData );
+
+ObjectMapper mapper = new ObjectMapper();
+String dataStr = mapper.writeValueAsString( data );
+
+%>
 <!DOCTYPE html>
 <html lang="en" class="snow" ng-app>
 <!--
@@ -42,8 +66,8 @@ To.개발자 : html 추가 class 명입니다.
             <div class="content">
                 <div class="reportBx mt20">
                     <div class="rep_info">
-                        <strong>SEPTHMBER 2014</strong>
-                        서울특별시 구로구 구로동 4352번지 <span class="cB">푸르지오 103동 1305호 님</span>
+                        <strong>{{data.month}}</strong>
+                        {{data.address}}
                     </div>
                     <p class="line"></p>
                     <div class="mt40 mb40"><img src="../images/hems_user/report/h1.jpg" alt="Monthly Energy Report 월간 에너지 리포트" /></div>
@@ -51,7 +75,7 @@ To.개발자 : html 추가 class 명입니다.
                     <div class="bx01">
                         <div class="tit">
                             <h2><img src="../images/hems_user/report/h2_01.gif" alt="이번 달 전기 사용량 & 요금" /></h2>
-                            <span class="h2">검침기간 : 2014년 6월 01일 ~ 06월 30일</span>
+                            <span class="h2">검침기간 : {{data.dateFrom}} ~ {{data.dateTo}}</span>
                         </div>
 
                         <div class="clearfix">
@@ -98,7 +122,7 @@ To.개발자 : html 추가 class 명입니다.
                             <li>
                                 <ul class="gap">
                                     <li>
-                                        <div class="in">
+                                        <div class="in"> <!-- width:268px -->
                                         <strong>전체</strong>
                                         </div>
                                         <span>00,000,00</span>
@@ -184,12 +208,15 @@ To.개발자 : html 추가 class 명입니다.
     </div>
     
     <script type="text/javascript">
+    var data = <%=dataStr%>;
+    
     function Controller( $scope )
     {
-    	
+    	$scope.data = data;
+    	drawChart( data.chartData[0], data.chartData[1] );
     }
     
-    $(function()
+    function drawChart( prev, cur )
     {
     	$('#chart').highcharts({
             title: {
@@ -206,15 +233,18 @@ To.개발자 : html 추가 class 명입니다.
             series: [{
                 type: 'column',
                 name: '지난달',
-                data: [3, 0]
+                color : "#FF0000",
+                data: [prev, 0]
             }, {
                 type: 'column',
                 name: '이번달',
-                data: [0, 2]
+                color : "#0000FF",
+                data: [0, cur]
             }, {
                 type: 'line',
                 name: 'Average',
-                data: [3, 2],
+                color : "#00FF00",
+                data: [prev, cur],
                 marker: {
                     lineWidth: 2,
                     lineColor: Highcharts.getOptions().colors[3],
@@ -222,7 +252,7 @@ To.개발자 : html 추가 class 명입니다.
                 }
             }]
         });
-    });
+    }
     </script>
 </body>
 </html>
