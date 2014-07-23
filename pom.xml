@@ -65,6 +65,7 @@
 	    <version>1.2</version>
 	</dependency>
 	
+	<!-- jackson json -->
 	<dependency>
 	    <groupId>org.codehaus.jackson</groupId>
 	    <artifactId>jackson-core-asl</artifactId>
