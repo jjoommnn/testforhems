@@ -49,6 +49,7 @@ To.개발자 : html 추가 class 명입니다.
     <script type="text/javascript" src="../vendor/hems_ui.js"></script>
 </head>
 <body ng-controller="Controller">
+    <div><a href="../../pdfdownload.do">PDF Download</a></div>
     <div class="wrap rep">
         <div class="header">
             <h1><a href="#none">ZERO Zone Energy Real-time Optimizer</a></h1>
@@ -230,6 +231,10 @@ To.개발자 : html 추가 class 명입니다.
             	}
             }, legend : {
             	enabled : false
+            }, plotOptions: {
+                series: {
+                    animation: false
+                }
             }, series: [{
                 type: 'column',
                 name : "사용량",
