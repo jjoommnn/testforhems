@@ -16,20 +16,28 @@ for( int i = 0; i <= 30; i++ ) //해당 월의 날짜만큼
     item.put( "level", new Integer( i / 5 + 1 ) ); //누진 단계
     chartData.add( item );
 }
-
-ArrayList chartData2 = new ArrayList();
-chartData2.add( new Float( 30 ) ); //경부하
-chartData2.add( new Float( 40 ) ); //중부하
-chartData2.add( new Float( 30 ) ); //고부하
 //테스트를 위해 가짜 차트 데이터 생성
 
 HashMap data = new HashMap();
-data.put( "chartData", chartData );
-data.put( "chartData2", chartData2 );
+data.put( "address", "푸르지오 단지" );
+data.put( "type", "계절시간별요금제(가을철 9~10월 기준)" );
 
-data.put( "lowLoad", "" );
-data.put( "midLoad", "" );
-data.put( "highLoad", "" );
+data.put( "chartData", chartData );
+
+data.put( "lowLoadAmount", new Float( 12345 ) );
+data.put( "lowLoadFee", new Float( 23456 ) );
+data.put( "lowLoadPercent", new Float( 30 ) );
+data.put( "lowLoadUnitPrice", new Float( 56.3 ) );
+
+data.put( "midLoadAmount", new Float( 23456 ) );
+data.put( "midLoadFee", new Float( 323223 ) );
+data.put( "midLoadPercent", new Float( 30 ) );
+data.put( "midLoadUnitPrice", new Float( 70.3 ) );
+
+data.put( "highLoadAmount", new Float( 65433 ) );
+data.put( "highLoadFee", new Float( 412432 ) );
+data.put( "highLoadPercent", new Float( 40 ) );
+data.put( "highLoadUnitPrice", new Float( 100.3 ) );
 
 ObjectMapper mapper = new ObjectMapper();
 String dataStr = mapper.writeValueAsString( data );
@@ -77,7 +85,7 @@ To.개발자 : html 추가 class 명입니다.
             <div class="content">
                 <div class="reportBx mt20">
                     <div class="rep_info type2">
-                        <span class="cB">푸르지오 단지</span>는 <span class="cB">계절시간별요금제(가을철 9~10월 기준)</span>를 적용 받고 있습니다.
+                        <span class="cB">{{data.address}}</span>는 <span class="cB">{{data.type}}</span>를 적용 받고 있습니다.
                     </div>
                     <p class="line"></p>
 
@@ -106,32 +114,29 @@ To.개발자 : html 추가 class 명입니다.
                                     </colgrounp>
                                     <tbody>
                                     <tr>
-                                        <th><span class="round01"></span>경부하 <span>(56.1 원/kWh)</span></th>
-                                        <th>40.3%</th>
-                                        <th class="txt-r">00,000,000 원(00,000,000 kWh)</th>
+                                        <th><span class="round01"></span>경부하 <span>({{data.lowLoadUnitPrice|number}} 원/kWh)</span></th>
+                                        <th>{{data.lowLoadPercent|number}}%</th>
+                                        <th class="txt-r">{{data.lowLoadFee|number}} 원({{data.lowLoadAmount|number}} kWh)</th>
                                     </tr>
                                     <tr>
-                                        <th><span class="round02"></span>중부하 <span>(56.1 원/kWh)</span></th>
-                                        <th>40.3%</th>
-                                        <th class="txt-r">00,000,000 원(00,000,000 kWh)</th>
+                                        <th><span class="round02"></span>중부하 <span>({{data.midLoadUnitPrice|number}} 원/kWh)</span></th>
+                                        <th>{{data.midLoadPercent|number}}%</th>
+                                        <th class="txt-r">{{data.midLoadFee|number}} 원({{data.midLoadAmount|number}} kWh)</th>
                                     </tr>
                                     <tr>
-                                        <th><span class="round03"></span>고부하 <span>(56.1 원/kWh)</span></th>
-                                        <th>40.3%</th>
-                                        <th class="txt-r">00,000,000 원(00,000,000 kWh)</th>
+                                        <th><span class="round03"></span>고부하 <span>({{data.highLoadUnitPrice|number}} 원/kWh)</span></th>
+                                        <th>{{data.highLoadPercent|number}}%</th>
+                                        <th class="txt-r">{{data.highLoadFee|number}} 원({{data.highLoadAmount|number}} kWh)</th>
                                     </tr>
                                     </tbody>
                                 </table>
 
                                 <div class="info">
-                                    <span class="iconR"></span>우리 사무실의 이 달 <span class="cO">최대부하구간</span>사용요금이 <span class="cB">29.0%</span>의 비중을 차지합니다. 최대부하구간 사용량을
+                                    <span class="iconR"></span>우리 사무실의 이 달 <span class="cO">최대부하구간</span>사용요금이 <span class="cB">{{data.highLoadPercent}}%</span>의 비중을 차지합니다. 최대부하구간 사용량을
                                     줄이면 전기 사용요금을 많이 절약할 수 있습니다.
                                 </div>
                             </div>
-
                         </div>
-
-
                     </div>
                     <div class="bx06 mt40">
                         <h2 class="mt40"><img src="../images/hems_user/report/h2_tip.gif" alt="전기절약 TIP" /></h2>
@@ -151,7 +156,6 @@ To.개발자 : html 추가 class 명입니다.
                         </ul>
                     </div>
 
-
                 </div>
             </div>
         </div>
@@ -165,7 +169,7 @@ To.개발자 : html 추가 class 명입니다.
     {
     	$scope.data = data;
         drawChart1( data.chartData );
-    	drawChart2( data.chartData2 );
+    	drawChart2( data.lowLoadPercent, data.midLoadPercent, data.highLoadPercent );
     }
     
     function drawChart1( data )
@@ -267,7 +271,7 @@ To.개발자 : html 추가 class 명입니다.
         });
     }
     
-    function drawChart2( data )
+    function drawChart2( low, mid, high )
     {
         $("#chart2").highcharts({
             title: {
@@ -289,19 +293,19 @@ To.개발자 : html 추가 class 명입니다.
 	                data: [
 	                    {
 	                    	name:"경부하",
-	                    	y:data[0],
+	                    	y:low,
 	                    	color : "#94C85A",
 	                    	sliced: true
 	                    },
 	                    {
 	                    	name:"중부하",
-	                    	y:data[1],
+	                    	y:mid,
 	                    	color : "#D8BD56",
 	                    	sliced:true
 	                    },
 	                    {
 	                    	name:"고부하",
-	                    	y:data[2],
+	                    	y:high,
 	                    	color : "#C43233",
 	                    	sliced:true
 	                    }

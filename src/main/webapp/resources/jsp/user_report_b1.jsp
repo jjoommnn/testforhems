@@ -13,7 +13,7 @@ for( int i = 0; i <= 30; i++ ) //해당 월의 날짜만큼
 {
     int amt = rnd.nextInt( 500 );
     HashMap item = new HashMap();
-    item.put( "amount", new Integer( amt ) ); //사용량
+    item.put( "amount", new Float( amt ) ); //사용량
     item.put( "level", new Integer( i / 5 + 1 ) ); //누진 단계
     chartData.add( item );
 }

@@ -7,8 +7,8 @@
 //
 //테스트를 위해 가짜 차트 데이터 생성
 ArrayList chartData = new ArrayList();
-chartData.add( new Integer( 110 ) ); //지난달
-chartData.add( new Integer( 170 ) ); //이번달
+chartData.add( new Float( 110 ) ); //지난달
+chartData.add( new Float( 170 ) ); //이번달
 //테스트를 위해 가짜 차트 데이터 생성
 
 HashMap data = new HashMap();
@@ -18,19 +18,19 @@ data.put( "address2", "푸르지오 103동 1305호" );
 data.put( "dateFrom", "2014년 6월 01일" );
 data.put( "dateTo", "06월 30일" );
 
-data.put( "useFee", new Integer( 12345 ) );
+data.put( "useFee", new Float( 12345 ) );
 data.put( "useFeePercent", new Float( 45.5 ) );
-data.put( "useAmount", new Integer( 56789 ) );
+data.put( "useAmount", new Float( 56789 ) );
 data.put( "useAmountPercent", new Float( 45.5 ) );
 
-data.put( "ourOfficeFee", new Integer( 12345 ) ); //우리사무실
-data.put( "ourOfficeAmount", new Integer( 45678 ) ); //우리사무실
-data.put( "officialFee", new Integer( 9876 ) ); //공용
-data.put( "officialAmount", new Integer( 2345 ) ); //공용
-data.put( "basicFee", new Integer( 1234 ) ); //기본료
+data.put( "ourOfficeFee", new Float( 12345 ) ); //우리사무실
+data.put( "ourOfficeAmount", new Float( 45678 ) ); //우리사무실
+data.put( "officialFee", new Float( 9876 ) ); //공용
+data.put( "officialAmount", new Float( 2345 ) ); //공용
+data.put( "basicFee", new Float( 1234 ) ); //기본료
 
-data.put( "totalAmount", new Integer( 5678 ) );
-data.put( "ourAmount", new Integer( 3456 ) );
+data.put( "totalAmount", new Float( 5678 ) );
+data.put( "ourAmount", new Float( 3456 ) );
 
 data.put( "level", new Integer( 4 ) ); //1 ~ 5 단계
 
