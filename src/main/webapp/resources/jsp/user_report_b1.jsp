@@ -1,4 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="java.util.*"%>
+<%@page import="org.codehaus.jackson.map.ObjectMapper"%>
+<%
+//
+//DB에서 data 쿼리 필요
+//
+
+//테스트를 위해 가짜 차트 데이터 생성
+ArrayList chartData = new ArrayList();
+Random rnd = new Random();
+for( int i = 0; i <= 30; i++ ) //해당 월의 날짜만큼
+{
+    int amt = rnd.nextInt( 500 );
+    HashMap item = new HashMap();
+    item.put( "amount", new Integer( amt ) ); //사용량
+    item.put( "level", new Integer( i / 5 ) ); //누진 단계, 0이면 1단계
+    chartData.add( item );
+}
+//테스트를 위해 가짜 차트 데이터 생성
+
+HashMap data = new HashMap();
+data.put( "chartData", chartData );
+
+ObjectMapper mapper = new ObjectMapper();
+String dataStr = mapper.writeValueAsString( data );
+%>
 <!DOCTYPE html>
 <html lang="en" class="snow" ng-app>
 <!--
@@ -23,7 +49,7 @@ To.개발자 : html 추가 class 명입니다.
     <script type="text/javascript" src="../vendor/highcharts/highcharts.js"></script>
     <script type="text/javascript" src="../vendor/hems_ui.js"></script>
 </head>
-<body>
+<body ng-controller="Controller">
     <div class="wrap rep">
         <div class="header">
             <h1><a href="#none">ZERO Zone Energy Real-time Optimizer</a></h1>
@@ -148,7 +174,6 @@ To.개발자 : html 추가 class 명입니다.
                         </ul>
                     </div>
 
-
                 </div>
             </div>
         </div>
@@ -156,18 +181,62 @@ To.개발자 : html 추가 class 명입니다.
     </div>
     
     <script type="text/javascript">
-    $(function()
+    var data = <%=dataStr%>;
+    
+    function Controller( $scope )
     {
+    	$scope.data = data;
+    	drawChart( data.chartData );
+    }
+    
+    function drawChart( data )
+    {
+    	var categories = [];
+    	var level1 = [];
+    	var level2 = [];
+    	var level3 = [];
+    	var level4 = [];
+    	var level5 = [];
+    	var level6 = [];
+    	var line = [];
+    	
+    	$.each( data, function( index, value )
+    	{
+    		categories[index] = "" + ( index + 1 );
+    		level1[index] = 0;
+    		level2[index] = 0;
+    		level3[index] = 0;
+    		level4[index] = 0;
+    		level5[index] = 0;
+    		level6[index] = 0;
+    	    line[index] = value.amount;
+    	    
+    		if( value.level < 1 )
+    			level1[index] = value.amount;
+    		else if( value.level < 2 )
+    			level2[index] = value.amount;
+    		else if( value.level < 3 )
+                level3[index] = value.amount;
+    		else if( value.level < 4 )
+                level4[index] = value.amount;
+    		else if( value.level < 5 )
+                level5[index] = value.amount;
+    		else
+    			level6[index] = value.amount;
+    	});
+    	
         $('#chart').highcharts({
             title: {
-                text: 'Combination chart'
+                text: ''
             },
             xAxis: {
-                categories: ['1','2','3','4','5','6','7','8','9','10',
-                             '11','12','13','14','15','16','17','18','19','20',
-                             '21','22','23','24','25','26','27','28','29','30','31']
+                categories: categories
             },
-            plotOptions: {
+            yAxis : {
+            	title : {
+            		text : "사용량"
+            	}
+            }, plotOptions: {
                 column: {
                     stacking: 'normal',
                 }
@@ -175,53 +244,46 @@ To.개발자 : html 추가 class 명입니다.
             series: [{
                 type: 'column',
                 name: '누진1단계',
-                data: [1,2,3,4,5,0,0,0,0,0,
-                       0,0,0,0,0,0,0,0,0,0,
-                       0,0,0,0,0,0,0,0,0,0,0]
+                color : "#0CA1D9",
+                data: level1
             }, {
                 type: 'column',
                 name: '누진2단계',
-                data: [0,0,0,0,0,6,7,8,9,4,
-                       0,0,0,0,0,0,0,0,0,0,
-                       0,0,0,0,0,0,0,0,0,0,0]
+                color : "#17C5B9",
+                data: level2
             }, {
                 type: 'column',
                 name: '누진3단계',
-                data: [0,0,0,0,0,0,0,0,0,0,
-                       10,11,12,13,12,0,0,0,0,0,
-                       0,0,0,0,0,0,0,0,0,0,0]
+                color : "#94C85A",
+                data: level3
             }, {
                 type: 'column',
                 name: '누진4단계',
-                data: [0,0,0,0,0,0,0,0,0,0,
-                       0,0,0,0,0,15,16,17,17,19,
-                       0,0,0,0,0,0,0,0,0,0,0]
+                color : "#D8BD56",
+                data: level4
             }, {
                 type: 'column',
                 name: '누진5단계',
-                data: [0,0,0,0,0,0,0,0,0,0,
-                       0,0,0,0,0,0,0,0,0,0,
-                       8,9,10,12,15,0,0,0,0,0,0]
+                color : "#EC9641",
+                data: level5
             }, {
                 type: 'column',
                 name: '누진6단계',
-                data: [0,0,0,0,0,0,0,0,0,0,
-                       0,0,0,0,0,0,0,0,0,0,
-                       0,0,0,0,0,3,4,3,5,6,2]
+                color : "#C43233",
+                data: level6
             }, {
                 type: 'line',
-                name: 'Average',
-                data: [10,10,11,12,0,0,0,0,0,0,
-                       15,17,19,13,0,0,0,0,0,0,
-                       0,0,0,0,0,3,4,3,5,6,2],
+                name: '사용량',
+                color : "#C2C2C0",
+                data: line,
                 marker: {
                     lineWidth: 2,
-                    lineColor: Highcharts.getOptions().colors[3],
+                    lineColor: "#777777",
                     fillColor: 'white'
                 }
             }]
         });
-    });
+    }
     </script>
 </body>
 </html>

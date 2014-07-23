@@ -25,8 +25,8 @@
         $('#calendar').fullCalendar({
             'viewRender' : function( view, element )
             {
-                console.log( "viewRender" );
-                var month = $('#calendar').fullCalendar( "getMonth" );
+                var month = $('#calendar').fullCalendar( "getDate" ).format( "YYYY-MM" );
+                console.log( "viewRender : " + month );
                 getAndAddData( month );
             }
         });
@@ -37,17 +37,26 @@
     	if( dataCache[month] )
     		return;
     	
-    	//$.ajax( ) 
+    	//$.ajax( )
+    	
+    	var data = testData( month );
+    	onRecvData( month , data );
     }
     
     function onRecvData( month, data )
     {
     	dataCache[month] = data;
-    	
-    	$.each( data, function( idx, d )
-    	{
-    	    $('#calendar').fullCalendar( "addEvent", d );
-    	});
+    	$('#calendar').fullCalendar( "addEventSource", data );
+    }
+    
+    function testData( month )
+    {
+    	var events = [
+    	    { title : "1000KM", start : month + "-01" },
+    	    { title : "1200KM", start : month + "-10" }
+    	];
+    	console.log( events );
+    	return events;
     }
     </script>
 </body>

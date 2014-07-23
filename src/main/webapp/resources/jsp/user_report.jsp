@@ -2,8 +2,9 @@
 <%@page import="java.util.*"%>
 <%@page import="org.codehaus.jackson.map.ObjectMapper"%>
 <%
-//DB에서 data를 쿼리해 온 후
-
+//
+//DB에서 data 쿼리 필요
+//
 HashMap data = new HashMap();
 data.put( "month", "SEPTHMBER 2014" );
 data.put( "address", "서울특별시 구로구 구로동 4352번지 푸르지오 103동 1305호 님" );
@@ -15,8 +16,8 @@ data.put( "useAmount", "" );
 data.put( "useAmountPercent", "" );
 
 ArrayList chartData = new ArrayList();
-chartData.add( new Float( 10 ) ); //지난달
-chartData.add( new Float( 12 ) ); //이번달
+chartData.add( new Integer( 110 ) ); //지난달
+chartData.add( new Integer( 170 ) ); //이번달
 data.put( "chartData", chartData );
 
 ObjectMapper mapper = new ObjectMapper();
@@ -219,36 +220,30 @@ To.개발자 : html 추가 class 명입니다.
     function drawChart( prev, cur )
     {
     	$('#chart').highcharts({
-            title: {
-                text: 'Combination chart'
-            },
-            xAxis: {
+    		title : {
+    			text : ""
+    		}, xAxis: {
                 categories: ['지난달', '이번달']
-            },
-            plotOptions: {
-                column: {
-                    stacking: 'normal',
-                }
-            },
-            series: [{
+            }, yAxis : {
+            	title : {
+            		text : "사용량"
+            	}
+            }, legend : {
+            	enabled : false
+            }, series: [{
                 type: 'column',
-                name: '지난달',
+                name : "사용량",
                 color : "#FF0000",
-                data: [prev, 0]
-            }, {
-                type: 'column',
-                name: '이번달',
-                color : "#0000FF",
-                data: [0, cur]
+                data: [ { y : prev, color : "#53A3C6" }, { y : cur, color : "#EB5244" } ]
             }, {
                 type: 'line',
-                name: 'Average',
-                color : "#00FF00",
-                data: [prev, cur],
+                name: '사용량',
+                color : "#C2C2C0",
+                data: [ { y : prev, color : "#53A3C6" }, { y : cur, color : "#EB5244" } ],
                 marker: {
-                    lineWidth: 2,
-                    lineColor: Highcharts.getOptions().colors[3],
-                    fillColor: 'white'
+                    lineWidth: 1,
+                    lineColor: "#C2C2C0",
+                    fillColor: null
                 }
             }]
         });
