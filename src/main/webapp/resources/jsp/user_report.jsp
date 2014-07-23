@@ -32,7 +32,7 @@ data.put( "basicFee", new Integer( 1234 ) ); //기본료
 data.put( "totalAmount", new Integer( 5678 ) );
 data.put( "ourAmount", new Integer( 3456 ) );
 
-data.put( "level", new Integer( 2 ) ); //1 ~ 5 단계
+data.put( "level", new Integer( 4 ) ); //1 ~ 5 단계
 
 data.put( "rank", new Integer( 233 ) );
 data.put( "rankMid", new Integer( 105 ) );
@@ -42,7 +42,6 @@ data.put( "chartData", chartData );
 
 ObjectMapper mapper = new ObjectMapper();
 String dataStr = mapper.writeValueAsString( data );
-
 %>
 <!DOCTYPE html>
 <html lang="en" class="snow" ng-app>
