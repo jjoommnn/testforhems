@@ -5,7 +5,6 @@
 //
 //DB에서 data 쿼리 필요
 //
-
 //테스트를 위해 가짜 차트 데이터 생성
 ArrayList chartData = new ArrayList();
 Random rnd = new Random();
@@ -17,10 +16,20 @@ for( int i = 0; i <= 30; i++ ) //해당 월의 날짜만큼
     item.put( "level", new Integer( i / 5 ) ); //누진 단계, 0이면 1단계
     chartData.add( item );
 }
+
+ArrayList chartData2 = new ArrayList();
+chartData2.add( new Float( 30 ) ); //경부하
+chartData2.add( new Float( 40 ) ); //중부하
+chartData2.add( new Float( 30 ) ); //고부하
 //테스트를 위해 가짜 차트 데이터 생성
 
 HashMap data = new HashMap();
 data.put( "chartData", chartData );
+data.put( "chartData2", chartData2 );
+
+data.put( "lowLoad", "" );
+data.put( "midLoad", "" );
+data.put( "highLoad", "" );
 
 ObjectMapper mapper = new ObjectMapper();
 String dataStr = mapper.writeValueAsString( data );
@@ -102,12 +111,12 @@ To.개발자 : html 추가 class 명입니다.
                                         <th class="txt-r">00,000,000 원(00,000,000 kWh)</th>
                                     </tr>
                                     <tr>
-                                        <th><span class="round02"></span>경부하 <span>(56.1 원/kWh)</span></th>
+                                        <th><span class="round02"></span>중부하 <span>(56.1 원/kWh)</span></th>
                                         <th>40.3%</th>
                                         <th class="txt-r">00,000,000 원(00,000,000 kWh)</th>
                                     </tr>
                                     <tr>
-                                        <th><span class="round03"></span>경부하 <span>(56.1 원/kWh)</span></th>
+                                        <th><span class="round03"></span>고부하 <span>(56.1 원/kWh)</span></th>
                                         <th>40.3%</th>
                                         <th class="txt-r">00,000,000 원(00,000,000 kWh)</th>
                                     </tr>
@@ -156,7 +165,7 @@ To.개발자 : html 추가 class 명입니다.
     {
     	$scope.data = data;
         drawChart1( data.chartData );
-    	drawChart2();
+    	drawChart2( data.chartData2 );
     }
     
     function drawChart1( data )
@@ -209,53 +218,56 @@ To.개발자 : html 추가 class 명입니다.
             }, plotOptions: {
                 column: {
                     stacking: 'normal',
+                }, series: {
+                    animation: false
                 }
-            },
-            series: [{
-                type: 'column',
-                name: '누진1단계',
-                color : "#0CA1D9",
-                data: level1
-            }, {
-                type: 'column',
-                name: '누진2단계',
-                color : "#17C5B9",
-                data: level2
-            }, {
-                type: 'column',
-                name: '누진3단계',
-                color : "#94C85A",
-                data: level3
-            }, {
-                type: 'column',
-                name: '누진4단계',
-                color : "#D8BD56",
-                data: level4
-            }, {
-                type: 'column',
-                name: '누진5단계',
-                color : "#EC9641",
-                data: level5
-            }, {
-                type: 'column',
-                name: '누진6단계',
-                color : "#C43233",
-                data: level6
-            }, {
-                type: 'line',
-                name: '사용량',
-                color : "#C2C2C0",
-                data: line,
-                marker: {
-                    lineWidth: 2,
-                    lineColor: "#777777",
-                    fillColor: 'white'
-                }
-            }]
+            }, series: [
+                {
+	                type: 'column',
+	                name: '누진1단계',
+	                color : "#0CA1D9",
+	                data: level1
+	            }, {
+	                type: 'column',
+	                name: '누진2단계',
+	                color : "#17C5B9",
+	                data: level2
+	            }, {
+	                type: 'column',
+	                name: '누진3단계',
+	                color : "#94C85A",
+	                data: level3
+	            }, {
+	                type: 'column',
+	                name: '누진4단계',
+	                color : "#D8BD56",
+	                data: level4
+	            }, {
+	                type: 'column',
+	                name: '누진5단계',
+	                color : "#EC9641",
+	                data: level5
+	            }, {
+	                type: 'column',
+	                name: '누진6단계',
+	                color : "#C43233",
+	                data: level6
+	            }, {
+	                type: 'line',
+	                name: '사용량',
+	                color : "#C2C2C0",
+	                data: line,
+	                marker: {
+	                    lineWidth: 2,
+	                    lineColor: "#777777",
+	                    fillColor: 'white'
+	                }
+	            }
+	        ]
         });
     }
     
-    function drawChart2()
+    function drawChart2( data )
     {
         $("#chart2").highcharts({
             title: {
@@ -267,32 +279,35 @@ To.개발자 : html 추가 class 명입니다.
                 		distance: -50,
                 		color : "#222222"
                 	}
+                }, series: {
+                    animation: false
                 }
-            },
-            series: [{
-                type: 'pie',
-                name: '비율',
-                data: [
-                    {
-                    	name:"경부하",
-                    	y:30,
-                    	color : "#94C85A",
-                    	sliced: true
-                    },
-                    {
-                    	name:"중부하",
-                    	y:30,
-                    	color : "#D8BD56",
-                    	sliced:true
-                    },
-                    {
-                    	name:"고부하",
-                    	y:40,
-                    	color : "#C43233",
-                    	sliced:true
-                    }
-                ]
-            }]
+            }, series: [
+                {
+	                type: 'pie',
+	                name: '비율',
+	                data: [
+	                    {
+	                    	name:"경부하",
+	                    	y:data[0],
+	                    	color : "#94C85A",
+	                    	sliced: true
+	                    },
+	                    {
+	                    	name:"중부하",
+	                    	y:data[1],
+	                    	color : "#D8BD56",
+	                    	sliced:true
+	                    },
+	                    {
+	                    	name:"고부하",
+	                    	y:data[2],
+	                    	color : "#C43233",
+	                    	sliced:true
+	                    }
+	                ]
+                }
+            ]
         });
     }
     </script>

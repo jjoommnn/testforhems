@@ -239,49 +239,52 @@ To.개발자 : html 추가 class 명입니다.
             }, plotOptions: {
                 column: {
                     stacking: 'normal',
+                }, series: {
+                    animation: false
                 }
-            },
-            series: [{
-                type: 'column',
-                name: '누진1단계',
-                color : "#0CA1D9",
-                data: level1
-            }, {
-                type: 'column',
-                name: '누진2단계',
-                color : "#17C5B9",
-                data: level2
-            }, {
-                type: 'column',
-                name: '누진3단계',
-                color : "#94C85A",
-                data: level3
-            }, {
-                type: 'column',
-                name: '누진4단계',
-                color : "#D8BD56",
-                data: level4
-            }, {
-                type: 'column',
-                name: '누진5단계',
-                color : "#EC9641",
-                data: level5
-            }, {
-                type: 'column',
-                name: '누진6단계',
-                color : "#C43233",
-                data: level6
-            }, {
-                type: 'line',
-                name: '사용량',
-                color : "#C2C2C0",
-                data: line,
-                marker: {
-                    lineWidth: 2,
-                    lineColor: "#777777",
-                    fillColor: 'white'
-                }
-            }]
+            }, series: [
+                {
+	                type: 'column',
+	                name: '누진1단계',
+	                color : "#0CA1D9",
+	                data: level1
+	            }, {
+	                type: 'column',
+	                name: '누진2단계',
+	                color : "#17C5B9",
+	                data: level2
+	            }, {
+	                type: 'column',
+	                name: '누진3단계',
+	                color : "#94C85A",
+	                data: level3
+	            }, {
+	                type: 'column',
+	                name: '누진4단계',
+	                color : "#D8BD56",
+	                data: level4
+	            }, {
+	                type: 'column',
+	                name: '누진5단계',
+	                color : "#EC9641",
+	                data: level5
+	            }, {
+	                type: 'column',
+	                name: '누진6단계',
+	                color : "#C43233",
+	                data: level6
+	            }, {
+	                type: 'line',
+	                name: '사용량',
+	                color : "#C2C2C0",
+	                data: line,
+	                marker: {
+	                    lineWidth: 2,
+	                    lineColor: "#777777",
+	                    fillColor: 'white'
+	                }
+	            }
+            ]
         });
     }
     </script>

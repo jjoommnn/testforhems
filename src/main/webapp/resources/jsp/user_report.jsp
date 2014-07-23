@@ -5,19 +5,39 @@
 //
 //DB에서 data 쿼리 필요
 //
-HashMap data = new HashMap();
-data.put( "month", "SEPTHMBER 2014" );
-data.put( "address", "서울특별시 구로구 구로동 4352번지 푸르지오 103동 1305호 님" );
-data.put( "dateFrom", "2014년 6월 01일" );
-data.put( "dateTo", "06월 30일" );
-data.put( "useFee", "" );
-data.put( "useFeePercent", "" );
-data.put( "useAmount", "" );
-data.put( "useAmountPercent", "" );
-
+//테스트를 위해 가짜 차트 데이터 생성
 ArrayList chartData = new ArrayList();
 chartData.add( new Integer( 110 ) ); //지난달
 chartData.add( new Integer( 170 ) ); //이번달
+//테스트를 위해 가짜 차트 데이터 생성
+
+HashMap data = new HashMap();
+data.put( "month", "SEPTHMBER 2014" );
+data.put( "address1", "서울특별시 구로구 구로동 4352번지" );
+data.put( "address2", "푸르지오 103동 1305호" );
+data.put( "dateFrom", "2014년 6월 01일" );
+data.put( "dateTo", "06월 30일" );
+
+data.put( "useFee", new Integer( 12345 ) );
+data.put( "useFeePercent", new Float( 45.5 ) );
+data.put( "useAmount", new Integer( 56789 ) );
+data.put( "useAmountPercent", new Float( 45.5 ) );
+
+data.put( "ourOfficeFee", new Integer( 12345 ) ); //우리사무실
+data.put( "ourOfficeAmount", new Integer( 45678 ) ); //우리사무실
+data.put( "officialFee", new Integer( 9876 ) ); //공용
+data.put( "officialAmount", new Integer( 2345 ) ); //공용
+data.put( "basicFee", new Integer( 1234 ) ); //기본료
+
+data.put( "totalAmount", new Integer( 5678 ) );
+data.put( "ourAmount", new Integer( 3456 ) );
+
+data.put( "level", new Integer( 2 ) ); //0 ~ 4 단계
+
+data.put( "rank", new Integer( 233 ) );
+data.put( "rankMid", new Integer( 105 ) );
+data.put( "rankPercent", new Float( 65 ) );
+
 data.put( "chartData", chartData );
 
 ObjectMapper mapper = new ObjectMapper();
@@ -69,7 +89,7 @@ To.개발자 : html 추가 class 명입니다.
                 <div class="reportBx mt20">
                     <div class="rep_info">
                         <strong>{{data.month}}</strong>
-                        {{data.address}}
+                        {{data.address1}} <span class="cB">{{data.address2}} 님</span>
                     </div>
                     <p class="line"></p>
                     <div class="mt40 mb40"><img src="../images/hems_user/report/h1.jpg" alt="Monthly Energy Report 월간 에너지 리포트" /></div>
@@ -83,8 +103,8 @@ To.개발자 : html 추가 class 명입니다.
                         <div class="clearfix">
                             <div class="conL">
                                 <ul class="use clearfix mt35">
-                                    <li>사용요금 : 00,000원(00.0%) <span class="icon01"></span></li>
-                                    <li>사용량 : 00,000kWh(00.0%) <span class="icon02"></span></li>
+                                    <li>사용요금 : {{data.useFee|number}}원({{data.useFeePercent|number}}%) <span class="icon01"></span></li>
+                                    <li>사용량 : {{data.useAmount|number}}kWh({{data.useAmountPercent|number}}%) <span class="icon02"></span></li>
                                     <!-- To.개발자 :
                                      class "icon01" - 동일
                                            "icon02" - 하락
@@ -95,22 +115,22 @@ To.개발자 : html 추가 class 명입니다.
                                 </div>
                             </div>
                             <div class="conR money mt40">
-                                <strong class="cB">\00,000,000 원</strong>
-                                <p class="cB">(00,000,000 kWh)</p>
+                                <strong class="cB">{{data.useFee|number}} 원</strong>
+                                <p class="cB">({{data.useAmount|number}} kWh)</p>
                                 <ul class="mt35">
                                     <li>
                                         <span class="tit"><img src="../images/hems_user/report/txt_01.gif" alt="우리 사무실" /></span>
-                                        <span class="k">(00,000,0000 kWh)</span><strong>00,0000,000원</strong>
+                                        <span class="k">({{data.ourOfficeAmount|number}} kWh)</span><strong>{{data.ourOfficeFee|number}} 원</strong>
 
                                     </li>
                                     <li>
                                         <span class="tit"><img src="../images/hems_user/report/txt_02.gif" alt="공용" /></span>
-                                        <span class="k">(00,000,0000 kWh)</span><strong>00,0000,000원</strong>
+                                        <span class="k">({{data.officialAmount|number}} kWh)</span><strong>{{data.officialFee|number}} 원</strong>
 
                                     </li>
                                     <li>
                                         <span class="tit"><img src="../images/hems_user/report/txt_03.gif" alt="기본료" /></span>
-                                        <strong>00,0000,000원</strong>
+                                        <strong>{{data.basicFee|number}} 원</strong>
                                     </li>
                                 </ul>
                                 <div class="info">실제 계측된 사용량과 오차가 있을 수 있으며, 실제 부과되는 전기요금과는 다를 수 있습니다.</div>
@@ -127,40 +147,35 @@ To.개발자 : html 추가 class 명입니다.
                                         <div class="in"> <!-- width:268px -->
                                         <strong>전체</strong>
                                         </div>
-                                        <span>00,000,00</span>
+                                        <span>{{data.totalAmount|number}}</span>
                                     </li>
                                     <li class="type1">
-                                        <div class="in" style="width:142px;"><!-- To.개발자 : width 값을 계산된 값을 넣어주세요. -->
+                                        <div class="in" style="width:{{268*data.ourAmount/data.totalAmount}}px;"><!-- To.개발자 : width 값을 계산된 값을 넣어주세요. -->
                                             <strong>우리</strong>
                                         </div>
-                                        <span>00,000,00</span>
+                                        <span>{{data.ourAmount|number}}</span>
                                     </li>
                                     <li class="type2">
-                                        <div class="in" style="width:80px;"><!-- To.개발자 : width 값을 계산된 값을 넣어주세요. -->
+                                        <div class="in" style="width:{{268*(data.totalAmount-data.ourAmount)/data.totalAmount}}px;"><!-- To.개발자 : width 값을 계산된 값을 넣어주세요. -->
                                         <strong>절약</strong>
                                         </div>
-                                        <span>00,000,00</span>
+                                        <span>{{data.totalAmount-data.ourAmount|number}}</span>
                                     </li>
                                 </ul>
                                 <div class="info txt-c">
                                     <strong>이번 달 사용량</strong>
                                     <p>단위면적당 사용량 기준</p>
-                                    <p>총 <span class="cB">00,000,00kWh</span> 사용하였습니다.</p>
+                                    <p>총 <span class="cB">{{data.totalAmount|number}} kWh</span> 사용하였습니다.</p>
                                 </div>
 
                             </li>
                             <li>
-                                <div class="level">
-                                    <img src="../images/hems_user/report/level_04.jpg" alt="4단계" />
-                                    <!-- To.개발자 :
-
-                                    <img src="../images/hems_user/report/level_01.jpg" alt="1단계" />
-                                    <img src="../images/hems_user/report/level_02.jpg" alt="2단계" />
-                                    <img src="../images/hems_user/report/level_03.jpg" alt="3단계" />
-                                    <img src="../images/hems_user/report/level_04.jpg" alt="4단계" />
-                                    <img src="../images/hems_user/report/level_05.jpg" alt="5단계" />
-
-                                     -->
+                                <div class="level" ng-switch="data.level">
+                                    <img src="../images/hems_user/report/level_01.jpg" alt="1단계" ng-switch-when="0" />
+                                    <img src="../images/hems_user/report/level_02.jpg" alt="2단계" ng-switch-when="1" />
+                                    <img src="../images/hems_user/report/level_03.jpg" alt="3단계" ng-switch-when="2" />
+                                    <img src="../images/hems_user/report/level_04.jpg" alt="4단계" ng-switch-when="3" />
+                                    <img src="../images/hems_user/report/level_05.jpg" alt="5단계" ng-switch-when="4" />
                                 </div>
                                 <div class="info txt-c">
                                     <strong>이번 달 사용등급</strong>
@@ -172,23 +187,20 @@ To.개발자 : html 추가 class 명입니다.
                                 <div class="rank">
                                     <strong class="t">총 500세대</strong>
                                     <img src="../images/hems_user/report/rank.jpg" alt="" />
-                                    <div class="r"><strong>233</strong>위</div>
+                                    <div class="r"><strong>{{data.rank}}</strong>위</div>
                                     <div>
-
-                                        <strong class="n">105<span class="iconD"></span></strong>
+                                        <strong class="n">{{data.rankMid}}<span class="iconD"></span></strong>
                                         <!-- To.개발자 :
                                         class "iconD" - 순위 하락
                                               "iconS" - 순위 동일
                                               "iconU" - 순위 상승
                                         -->
-
                                     </div>
-
                                 </div>
                                 <div class="info txt-c">
                                     <strong>이번 달 사용순위</strong>
                                     <p>총 500세대 중 </span></p>
-                                    <p><span class="cB">233위 상위 65%</span>입니다.</p>
+                                    <p><span class="cB">{{data.rank}}위 상위 {{data.rankPercent}}%</span>입니다.</p>
                                 </div>
                             </li>
                         </ul>
@@ -201,8 +213,6 @@ To.개발자 : html 추가 class 명입니다.
                             <li>- 우리 사무실은 이웃세대보다 0~7시, 9시, 17~19시에 전력을 더 많이 사용합니다.</li>
                         </ul>
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -235,22 +245,25 @@ To.개발자 : html 추가 class 명입니다.
                 series: {
                     animation: false
                 }
-            }, series: [{
-                type: 'column',
-                name : "사용량",
-                color : "#FF0000",
-                data: [ { y : prev, color : "#53A3C6" }, { y : cur, color : "#EB5244" } ]
-            }, {
-                type: 'line',
-                name: '사용량',
-                color : "#C2C2C0",
-                data: [ { y : prev, color : "#53A3C6" }, { y : cur, color : "#EB5244" } ],
-                marker: {
-                    lineWidth: 1,
-                    lineColor: "#C2C2C0",
-                    fillColor: null
-                }
-            }]
+            }, series: [
+                {
+	                type: 'column',
+	                name : "사용량",
+	                color : "#FF0000",
+	                data: [ { y : prev, color : "#53A3C6" }, { y : cur, color : "#EB5244" } ]
+		        },
+		        {
+	                type: 'line',
+	                name: '사용량',
+	                color : "#C2C2C0",
+	                data: [ { y : prev, color : "#53A3C6" }, { y : cur, color : "#EB5244" } ],
+	                marker: {
+	                    lineWidth: 1,
+	                    lineColor: "#C2C2C0",
+	                    fillColor: null
+	                }
+	            }
+            ]
         });
     }
     </script>
