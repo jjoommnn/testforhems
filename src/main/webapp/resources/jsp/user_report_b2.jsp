@@ -88,12 +88,10 @@ To.개발자 : html 추가 class 명입니다.
                         <span class="cB">{{data.address}}</span>는 <span class="cB">{{data.type}}</span>를 적용 받고 있습니다.
                     </div>
                     <p class="line"></p>
-
                     <div class="bx04 mt48">
                         <div class="tit">
                             <h2><img src="../images/hems_user/report/h2_05.gif" alt="월간 시간대별 사용량 추이" /></h2>
                         </div>
-
                         <div id="chart" class="chart mt20" style="width:1048px;height:270px; margin:0 auto">
                         </div>
                     </div>
@@ -130,7 +128,6 @@ To.개발자 : html 추가 class 명입니다.
                                     </tr>
                                     </tbody>
                                 </table>
-
                                 <div class="info">
                                     <span class="iconR"></span>우리 사무실의 이 달 <span class="cO">최대부하구간</span>사용요금이 <span class="cB">{{data.highLoadPercent}}%</span>의 비중을 차지합니다. 최대부하구간 사용량을
                                     줄이면 전기 사용요금을 많이 절약할 수 있습니다.
@@ -145,22 +142,20 @@ To.개발자 : html 추가 class 명입니다.
                                 <span class="iconTip01"></span>
                                 전기 콘센트를 ON/OFF 기능이 있는 것으로<br/>
                                 교체해 보세요. 약 <span class="cG">3%의 절약</span>이 가능해요~
-
                             </li>
                             <li>
                                 <span class="iconTip02"></span>
                                 전기밥솥보다 <span class="cG">압력밥솥</span>을 이용해보세요.<br/>
                                 전기밥솥은 전기 먹는 하마예요~
-
                             </li>
                         </ul>
                     </div>
-
                 </div>
             </div>
         </div>
-
     </div>
+    
+    <div style="text-align:center"><a href="../../pdfdownload.do?page=user_report_b2.jsp">PDF Download</a></div>
     
     <script type="text/javascript">
     var data = <%=dataStr%>;

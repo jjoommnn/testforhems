@@ -68,7 +68,6 @@ To.개발자 : html 추가 class 명입니다.
     <script type="text/javascript" src="../vendor/hems_ui.js"></script>
 </head>
 <body ng-controller="Controller">
-    <div><a href="../../pdfdownload.do">PDF Download</a></div>
     <div class="wrap rep">
         <div class="header">
             <h1><a href="#none">ZERO Zone Energy Real-time Optimizer</a></h1>
@@ -92,13 +91,11 @@ To.개발자 : html 추가 class 명입니다.
                     </div>
                     <p class="line"></p>
                     <div class="mt40 mb40"><img src="../images/hems_user/report/h1.jpg" alt="Monthly Energy Report 월간 에너지 리포트" /></div>
-
                     <div class="bx01">
                         <div class="tit">
                             <h2><img src="../images/hems_user/report/h2_01.gif" alt="이번 달 전기 사용량 & 요금" /></h2>
                             <span class="h2">검침기간 : {{data.dateFrom}} ~ {{data.dateTo}}</span>
                         </div>
-
                         <div class="clearfix">
                             <div class="conL">
                                 <ul class="use clearfix mt35">
@@ -120,12 +117,10 @@ To.개발자 : html 추가 class 명입니다.
                                     <li>
                                         <span class="tit"><img src="../images/hems_user/report/txt_01.gif" alt="우리 사무실" /></span>
                                         <span class="k">({{data.ourOfficeAmount|number}} kWh)</span><strong>{{data.ourOfficeFee|number}} 원</strong>
-
                                     </li>
                                     <li>
                                         <span class="tit"><img src="../images/hems_user/report/txt_02.gif" alt="공용" /></span>
                                         <span class="k">({{data.officialAmount|number}} kWh)</span><strong>{{data.officialFee|number}} 원</strong>
-
                                     </li>
                                     <li>
                                         <span class="tit"><img src="../images/hems_user/report/txt_03.gif" alt="기본료" /></span>
@@ -134,7 +129,6 @@ To.개발자 : html 추가 class 명입니다.
                                 </ul>
                                 <div class="info">실제 계측된 사용량과 오차가 있을 수 있으며, 실제 부과되는 전기요금과는 다를 수 있습니다.</div>
                             </div>
-
                         </div>
                     </div>
                     <div class="bx02 mt50">
@@ -166,7 +160,6 @@ To.개발자 : html 추가 class 명입니다.
                                     <p>단위면적당 사용량 기준</p>
                                     <p>총 <span class="cB">{{data.totalAmount|number}} kWh</span> 사용하였습니다.</p>
                                 </div>
-
                             </li>
                             <li>
                                 <div class="level" ng-switch="data.level">
@@ -215,8 +208,9 @@ To.개발자 : html 추가 class 명입니다.
                 </div>
             </div>
         </div>
-
     </div>
+    
+    <div style="text-align:center"><a href="../../pdfdownload.do?page=user_report.jsp">PDF Download</a></div>
     
     <script type="text/javascript">
     var data = <%=dataStr%>;

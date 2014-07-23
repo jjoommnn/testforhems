@@ -21,9 +21,16 @@ public class Download
     @RequestMapping("/pdfdownload.do")
     public void pdfDownload( HttpServletRequest request, HttpServletResponse response )
     {
+    	String page = request.getParameter( "page" );
+    	if( page == null || page.length() <= 0 )
+    	{
+    		try { response.sendError( 404 ); } catch( Exception ee ) {}
+    		return;
+    	}
+    	
         try
         {
-            File imgFile = makeScreenShot();
+            File imgFile = makeScreenShot( page );
             response.setContentType( "application/pdf" );
             
             OutputStream rOut = null;
@@ -54,10 +61,10 @@ public class Download
         }
     }
     
-    private File makeScreenShot() throws Exception
+    private File makeScreenShot( String page ) throws Exception
     {
         String line = "cmd /C start C:\\Users\\joomin\\AppData\\Roaming\\npm\\pageres.cmd " +
-                      "http://localhost:8080/testforhems/resources/jsp/user_report.jsp " +
+                      "localhost:8080/testforhems/resources/jsp/" + page + " " +
                       "595x842";
         
         System.out.println( "makeScreenShot : " + line );
@@ -70,6 +77,6 @@ public class Download
         
         System.out.println( "Done : " + exitValue );
         
-        return new File( "C:\\Temp\\localhost!8080!testforhems!resources!jsp!user_report.jsp-595x842.png" );
+        return new File( "C:\\Temp\\localhost!8080!testforhems!resources!jsp!" + page + "-595x842.png" );
     }
 }
