@@ -14,13 +14,57 @@ for( int i = 0; i <= 30; i++ ) //해당 월의 날짜만큼
     int amt = rnd.nextInt( 500 );
     HashMap item = new HashMap();
     item.put( "amount", new Integer( amt ) ); //사용량
-    item.put( "level", new Integer( i / 5 ) ); //누진 단계, 0이면 1단계
+    item.put( "level", new Integer( i / 5 + 1 ) ); //누진 단계
     chartData.add( item );
 }
 //테스트를 위해 가짜 차트 데이터 생성
 
 HashMap data = new HashMap();
+data.put( "address", "푸르지오 단지" );
+data.put( "type", "누진제[주택용 저압]" );
 data.put( "chartData", chartData );
+
+data.put( "level1Amount", new Float( 12345 ) );
+data.put( "level1Percent", new Float( 100 ) );
+data.put( "level1BasicFee", new Float( 12940 ) );
+data.put( "level1UnitPrice", new Float( 709.5 ) );
+data.put( "level1Fee", new Float( 23456 ) );
+
+data.put( "level2Amount", new Float( 23456 ) );
+data.put( "level2Percent", new Float( 100 ) );
+data.put( "level2BasicFee", new Float( 12940 ) );
+data.put( "level2UnitPrice", new Float( 709.5 ) );
+data.put( "level2Fee", new Float( 34567 ) );
+
+data.put( "level3Amount", new Float( 23456 ) );
+data.put( "level3Percent", new Float( 30 ) );
+data.put( "level3BasicFee", new Float( 12940 ) );
+data.put( "level3UnitPrice", new Float( 709.5 ) );
+data.put( "level3Fee", new Float( 34567 ) );
+
+data.put( "level4Amount", new Float( 0 ) );
+data.put( "level4Percent", new Float( 0 ) );
+data.put( "level4BasicFee", new Float( 0 ) );
+data.put( "level4UnitPrice", new Float( 0 ) );
+data.put( "level4Fee", new Float( 0 ) );
+
+data.put( "level5Amount", new Float( 0 ) );
+data.put( "level5Percent", new Float( 0 ) );
+data.put( "level5BasicFee", new Float( 0 ) );
+data.put( "level5UnitPrice", new Float( 0 ) );
+data.put( "level5Fee", new Float( 0 ) );
+
+data.put( "level6Amount", new Float( 0 ) );
+data.put( "level6Percent", new Float( 0 ) );
+data.put( "level6BasicFee", new Float( 0 ) );
+data.put( "level6UnitPrice", new Float( 0 ) );
+data.put( "level6Fee", new Float( 0 ) );
+
+data.put( "level", new Integer( 3 ) ); //누진단계
+
+data.put( "totalAmount", new Float( 78901 ) );
+data.put( "basicFee", new Float( 3456 ) );
+data.put( "useFee", new Float( 56789 ) );
 
 ObjectMapper mapper = new ObjectMapper();
 String dataStr = mapper.writeValueAsString( data );
@@ -68,7 +112,7 @@ To.개발자 : html 추가 class 명입니다.
             <div class="content">
                 <div class="reportBx mt20">
                     <div class="rep_info type2">
-                        <span class="cB">푸르지오 단지</span>는 <span class="cB">누진제[주택용 저압]</span>를 적용 받고 있습니다.
+                        <span class="cB">{{data.address}}</span>는 <span class="cB">{{data.type}}</span>를 적용 받고 있습니다.
                     </div>
                     <p class="line"></p>
 
@@ -100,59 +144,77 @@ To.개발자 : html 추가 class 명입니다.
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr ng-class="{on:data.level==6}">
                                 <td class="txt-c">6단계</td>
-                                <td>0</td><!-- To.개발자 : 값이 0일때는 div.level 삭제 -->
-                                <td class="txt-r">12,940원</td>
-                                <td class="txt-r">709.5원</td>
-                                <td class="txt-r">0</td>
+                                <td>
+	                                <div class="level" ng-if="data.level6Percent > 0" style="width:{{200*data.level6Percent/100}}px"></div>
+	                                {{data.level6Amount|number}}
+                                </td>
+                                <td class="txt-r">{{data.level6BasicFee|number}} 원</td>
+                                <td class="txt-r">{{data.level6UnitPrice|number}} 원</td>
+                                <td class="txt-r">{{data.level6Fee|number}} 원</td>
                             </tr>
-                            <tr>
+                            <tr ng-class="{on:data.level==5}">
                                 <td class="txt-c">5단계</td>
-                                <td>0</td>
-                                <td class="txt-r">12,940원</td>
-                                <td class="txt-r">709.5원</td>
-                                <td class="txt-r">0</td>
+                                <td>
+                                    <div class="level" ng-if="data.level5Percent > 0" style="width:{{200*data.level5Percent/100}}px"></div>
+                                    {{data.level5Amount|number}}
+                                </td>
+                                <td class="txt-r">{{data.level5BasicFee|number}} 원</td>
+                                <td class="txt-r">{{data.level5UnitPrice|number}} 원</td>
+                                <td class="txt-r">{{data.level5Fee|number}} 원</td>
                             </tr>
-                            <tr class="on">
+                            <tr ng-class="{on:data.level==4}">
                                 <td class="txt-c">4단계</td>
-                                <td><div class="level" style="width:50px"></div>30</td><!-- To.개발자 : 값이 있을 div.level 추가 & width 값 넣어주세요 -->
-                                <td class="txt-r">12,940원</td>
-                                <td class="txt-r">709.5원</td>
-                                <td class="txt-r">0</td>
+                                <td>
+                                    <div class="level" ng-if="data.level4Percent > 0" style="width:{{200*data.level4Percent/100}}px"></div>
+                                    {{data.level4Amount|number}}
+                                </td>
+                                <td class="txt-r">{{data.level4BasicFee|number}} 원</td>
+                                <td class="txt-r">{{data.level4UnitPrice|number}} 원</td>
+                                <td class="txt-r">{{data.level4Fee|number}} 원</td>
                             </tr>
-                            <tr>
+                            <tr ng-class="{on:data.level==3}">
                                 <td class="txt-c">3단계</td>
-                                <td><div class="level" style="width:220px"></div>100</td><!-- To.개발자 : 값이 최대 220을 넘지 않도록 해주세요!!!!!!!!!!! -->
-                                <td class="txt-r">12,940원</td>
-                                <td class="txt-r">709.5원</td>
-                                <td class="txt-r">0</td>
+                                <td>
+                                    <div class="level" ng-if="data.level3Percent > 0" style="width:{{200*data.level3Percent/100}}px"></div>
+                                    {{data.level3Amount|number}}
+                                </td>
+                                <td class="txt-r">{{data.level3BasicFee|number}} 원</td>
+                                <td class="txt-r">{{data.level3UnitPrice|number}} 원</td>
+                                <td class="txt-r">{{data.level3Fee|number}} 원</td>
                             </tr>
-                            <tr>
+                            <tr ng-class="{on:data.level==2}">
                                 <td class="txt-c">2단계</td>
-                                <td><div class="level" style="width:220px"></div>100</td>
-                                <td class="txt-r">12,940원</td>
-                                <td class="txt-r">709.5원</td>
-                                <td class="txt-r">0</td>
+                                <td>
+                                    <div class="level" ng-if="data.level2Percent > 0" style="width:{{200*data.level2Percent/100}}px"></div>
+                                    {{data.level2Amount|number}}
+                                </td>
+                                <td class="txt-r">{{data.level2BasicFee|number}} 원</td>
+                                <td class="txt-r">{{data.level2UnitPrice|number}} 원</td>
+                                <td class="txt-r">{{data.level2Fee|number}} 원</td>
                             </tr>
-                            <tr class="last">
+                            <tr class="last" ng-class="{on:data.level==1}">
                                 <td class="txt-c">1단계</td>
-                                <td><div class="level" style="width:220px"></div>100</td>
-                                <td class="txt-r">12,940원</td>
-                                <td class="txt-r">709.5원</td>
-                                <td class="txt-r">0</td>
+                                <td>
+                                    <div class="level" ng-if="data.level1Amount > 0" style="width:{{200*data.level1Percent/100}}px"></div>
+                                    {{data.level1Amount|number}}
+                                </td>
+                                <td class="txt-r">{{data.level1BasicFee|number}} 원</td>
+                                <td class="txt-r">{{data.level1UnitPrice|number}} 원</td>
+                                <td class="txt-r">{{data.level1Fee|number}} 원</td>
                             </tr>
                             </tbody>
                             <tfoot>
                             <tr>
-                                <th colspan="4">총사용량요금 (기본요금 3,850원 포함)</th>
-                                <td>65,510원</td>
+                                <th colspan="4">총사용량요금 (기본요금 {{data.basicFee|number}} 원 포함)</th>
+                                <td>{{data.useFee|number}}원</td>
                             </tr>
                             </tfoot>
                         </table>
 
                         <div class="info">
-                            <span class="iconR"></span>우리 사무실의 이 달 <span class="cO">누진제 적용단계</span>는 <span class="cB">4단계</span> 입니다. 누진제 적용단계를 낮추면 전기 사용요금을 많이 절약할 수 있습니다.
+                            <span class="iconR"></span>우리 사무실의 이 달 <span class="cO">누진제 적용단계</span>는 <span class="cB">{{data.level}} 단계</span> 입니다. 누진제 적용단계를 낮추면 전기 사용요금을 많이 절약할 수 있습니다.
 
                         </div>
                     </div>
@@ -211,15 +273,15 @@ To.개발자 : html 추가 class 명입니다.
     		level6[index] = 0;
     	    line[index] = value.amount;
     	    
-    		if( value.level < 1 )
+    		if( value.level <= 1 )
     			level1[index] = value.amount;
-    		else if( value.level < 2 )
+    		else if( value.level <= 2 )
     			level2[index] = value.amount;
-    		else if( value.level < 3 )
+    		else if( value.level <= 3 )
                 level3[index] = value.amount;
-    		else if( value.level < 4 )
+    		else if( value.level <= 4 )
                 level4[index] = value.amount;
-    		else if( value.level < 5 )
+    		else if( value.level <= 5 )
                 level5[index] = value.amount;
     		else
     			level6[index] = value.amount;

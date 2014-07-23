@@ -13,7 +13,7 @@ for( int i = 0; i <= 30; i++ ) //해당 월의 날짜만큼
     int amt = rnd.nextInt( 500 );
     HashMap item = new HashMap();
     item.put( "amount", new Integer( amt ) ); //사용량
-    item.put( "level", new Integer( i / 5 ) ); //누진 단계, 0이면 1단계
+    item.put( "level", new Integer( i / 5 + 1 ) ); //누진 단계
     chartData.add( item );
 }
 
@@ -190,15 +190,15 @@ To.개발자 : html 추가 class 명입니다.
             level6[index] = 0;
             line[index] = value.amount;
             
-            if( value.level < 1 )
+            if( value.level <= 1 )
                 level1[index] = value.amount;
-            else if( value.level < 2 )
+            else if( value.level <= 2 )
                 level2[index] = value.amount;
-            else if( value.level < 3 )
+            else if( value.level <= 3 )
                 level3[index] = value.amount;
-            else if( value.level < 4 )
+            else if( value.level <= 4 )
                 level4[index] = value.amount;
-            else if( value.level < 5 )
+            else if( value.level <= 5 )
                 level5[index] = value.amount;
             else
                 level6[index] = value.amount;

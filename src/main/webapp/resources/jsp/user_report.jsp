@@ -32,7 +32,7 @@ data.put( "basicFee", new Integer( 1234 ) ); //기본료
 data.put( "totalAmount", new Integer( 5678 ) );
 data.put( "ourAmount", new Integer( 3456 ) );
 
-data.put( "level", new Integer( 2 ) ); //0 ~ 4 단계
+data.put( "level", new Integer( 2 ) ); //1 ~ 5 단계
 
 data.put( "rank", new Integer( 233 ) );
 data.put( "rankMid", new Integer( 105 ) );
@@ -171,11 +171,11 @@ To.개발자 : html 추가 class 명입니다.
                             </li>
                             <li>
                                 <div class="level" ng-switch="data.level">
-                                    <img src="../images/hems_user/report/level_01.jpg" alt="1단계" ng-switch-when="0" />
-                                    <img src="../images/hems_user/report/level_02.jpg" alt="2단계" ng-switch-when="1" />
-                                    <img src="../images/hems_user/report/level_03.jpg" alt="3단계" ng-switch-when="2" />
-                                    <img src="../images/hems_user/report/level_04.jpg" alt="4단계" ng-switch-when="3" />
-                                    <img src="../images/hems_user/report/level_05.jpg" alt="5단계" ng-switch-when="4" />
+                                    <img src="../images/hems_user/report/level_01.jpg" alt="1단계" ng-switch-when="1" />
+                                    <img src="../images/hems_user/report/level_02.jpg" alt="2단계" ng-switch-when="2" />
+                                    <img src="../images/hems_user/report/level_03.jpg" alt="3단계" ng-switch-when="3" />
+                                    <img src="../images/hems_user/report/level_04.jpg" alt="4단계" ng-switch-when="4" />
+                                    <img src="../images/hems_user/report/level_05.jpg" alt="5단계" ng-switch-when="5" />
                                 </div>
                                 <div class="info txt-c">
                                     <strong>이번 달 사용등급</strong>
