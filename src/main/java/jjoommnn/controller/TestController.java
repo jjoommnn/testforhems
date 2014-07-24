@@ -28,8 +28,6 @@ public class TestController
     @ResponseBody
     public List getCalendarData( @RequestParam String month )
     {
-        System.out.println( "getCalendarData : " + month );
-        
         List data = new ArrayList();
         
         //테스트 용으로 가짜 데이터 생성
@@ -97,22 +95,29 @@ public class TestController
         }
     }
     
+    private static final String PAGERES_PATH = "C:\\Users\\joomin\\AppData\\Roaming\\npm\\pageres.cmd";
+    private static final String BASE_URL = "localhost:8080/testforhems/resources/jsp/";
+    private static final String IMAGE_SIZE = "595x842";
+    private static final String DIR_PATH = "C:\\Temp\\";
+    
     private File makeScreenShot( String page ) throws Exception
     {
-        String line = "cmd /C start C:\\Users\\joomin\\AppData\\Roaming\\npm\\pageres.cmd " +
-                      "localhost:8080/testforhems/resources/jsp/" + page + " " +
-                      "595x842";
+        String line = "cmd /C start" + " " +
+                      PAGERES_PATH + " " + BASE_URL + page + " " + IMAGE_SIZE;
         
         System.out.println( "makeScreenShot : " + line );
         
         CommandLine cmdLine = CommandLine.parse(line);
         DefaultExecutor executor = new DefaultExecutor();
-        executor.setWorkingDirectory( new File( "C:\\Temp" ) );
+        executor.setWorkingDirectory( new File( DIR_PATH ) );
         
         int exitValue = executor.execute( cmdLine );
         
         System.out.println( "Done : " + exitValue );
         
-        return new File( "C:\\Temp\\localhost!8080!testforhems!resources!jsp!" + page + "-595x842.png" );
+        String file = BASE_URL + page + "-" + IMAGE_SIZE + ".png";
+        file = file.replaceAll( "[/:]", "!" );
+        
+        return new File( DIR_PATH + file );
     }
 }

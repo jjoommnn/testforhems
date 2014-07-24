@@ -18,10 +18,11 @@ data.put( "address2", "푸르지오 103동 1305호" );
 data.put( "dateFrom", "2014년 6월 01일" );
 data.put( "dateTo", "06월 30일" );
 
-data.put( "useFee", new Float( 12345 ) );
+data.put( "useFee", new Float( 12345 ) ); //사용요금
 data.put( "useFeePercent", new Float( 45.5 ) );
-data.put( "useAmount", new Float( 56789 ) );
+data.put( "useAmount", new Float( 56789 ) ); //사용량
 data.put( "useAmountPercent", new Float( 45.5 ) );
+data.put( "useUpDown", new Integer( -1 ) ); //-1 하락, 0 동일, 1 상승
 
 data.put( "ourOfficeFee", new Float( 12345 ) ); //우리사무실
 data.put( "ourOfficeAmount", new Float( 45678 ) ); //우리사무실
@@ -37,6 +38,7 @@ data.put( "level", new Integer( 4 ) ); //1 ~ 5 단계
 data.put( "rank", new Integer( 233 ) );
 data.put( "rankMid", new Integer( 105 ) );
 data.put( "rankPercent", new Float( 65 ) );
+data.put( "rankUpDown", new Integer( -1 ) ); //-1 하락, 0 동일, 1 상승
 
 data.put( "chartData", chartData );
 
@@ -99,13 +101,12 @@ To.개발자 : html 추가 class 명입니다.
                         <div class="clearfix">
                             <div class="conL">
                                 <ul class="use clearfix mt35">
-                                    <li>사용요금 : {{data.useFee|number}}원({{data.useFeePercent|number}}%) <span class="icon01"></span></li>
-                                    <li>사용량 : {{data.useAmount|number}}kWh({{data.useAmountPercent|number}}%) <span class="icon02"></span></li>
-                                    <!-- To.개발자 :
-                                     class "icon01" - 동일
-                                           "icon02" - 하락
-                                           "icon03" - 상승
-                                     -->
+                                    <li>사용요금 : {{data.useFee|number}}원({{data.useFeePercent|number}}%)
+                                        <span ng-class="{icon01:data.useUpDown==0,icon02:data.useUpDown==-1,icon03:data.useUpDown==1}"></span>
+                                    </li>
+                                    <li>사용량 : {{data.useAmount|number}}kWh({{data.useAmountPercent|number}}%)
+                                        <span ng-class="{icon01:data.useUpDown==0,icon02:data.useUpDown==-1,icon03:data.useUpDown==1}"></span>
+                                    </li>
                                 </ul>
                                 <div id="chart" class="chart mt20" style="width:420px;height:300px;margin:0 auto">
                                 </div>
@@ -143,13 +144,13 @@ To.개발자 : html 추가 class 명입니다.
                                         <span>{{data.totalAmount|number}}</span>
                                     </li>
                                     <li class="type1">
-                                        <div class="in" style="width:{{268*data.ourAmount/data.totalAmount}}px;"><!-- To.개발자 : width 값을 계산된 값을 넣어주세요. -->
+                                        <div class="in" style="width:{{268*data.ourAmount/data.totalAmount}}px;">
                                             <strong>우리</strong>
                                         </div>
                                         <span>{{data.ourAmount|number}}</span>
                                     </li>
                                     <li class="type2">
-                                        <div class="in" style="width:{{268*(data.totalAmount-data.ourAmount)/data.totalAmount}}px;"><!-- To.개발자 : width 값을 계산된 값을 넣어주세요. -->
+                                        <div class="in" style="width:{{268*(data.totalAmount-data.ourAmount)/data.totalAmount}}px;">
                                         <strong>절약</strong>
                                         </div>
                                         <span>{{data.totalAmount-data.ourAmount|number}}</span>
@@ -181,12 +182,9 @@ To.개발자 : html 추가 class 명입니다.
                                     <img src="../images/hems_user/report/rank.jpg" alt="" />
                                     <div class="r"><strong>{{data.rank}}</strong>위</div>
                                     <div>
-                                        <strong class="n">{{data.rankMid}}<span class="iconD"></span></strong>
-                                        <!-- To.개발자 :
-                                        class "iconD" - 순위 하락
-                                              "iconS" - 순위 동일
-                                              "iconU" - 순위 상승
-                                        -->
+                                        <strong class="n">{{data.rankMid}}
+                                            <span ng-class="{iconS:data.rankUpDown==0,iconD:data.rankUpDown==-1,iconU:data.rankUpDown==1}"></span>
+                                        </strong>
                                     </div>
                                 </div>
                                 <div class="info txt-c">
