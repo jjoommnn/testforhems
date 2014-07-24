@@ -2,6 +2,10 @@ package jjoommnn.controller;
 
 import java.io.File;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,14 +14,46 @@ import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.Image;
 import com.lowagie.text.pdf.PdfWriter;
 
 @Controller
-public class Download
+public class TestController
 {
+    @RequestMapping("/getCalendarData.do")
+    @ResponseBody
+    public List getCalendarData( @RequestParam String month )
+    {
+        System.out.println( "getCalendarData : " + month );
+        
+        List data = new ArrayList();
+        
+        //테스트 용으로 가짜 데이터 생성
+        Random rnd = new Random();
+        for( int i = 0; i <= 30; i++ )
+        {
+            int ii = i + 1;
+            String is = ii < 10 ? "0" + ii : "" + ii;
+            
+            HashMap item = new HashMap();
+            item.put( "start", month + "-" + is );
+            item.put( "title", ( rnd.nextInt( 10 ) + 1 ) + "만원" );
+            item.put( "fee", new Float( rnd.nextInt( 90000 ) + 1 ) );
+            item.put( "feeAcc", new Float( rnd.nextInt( 90000 ) + 1 ) );
+            item.put( "amount", new Float( rnd.nextInt( 90000 ) + 1 ) );
+            item.put( "level", new Integer( i / 5 + 1 ) );
+            
+            data.add( item );
+        }
+        //테스트 용으로 가짜 데이터 생성
+        
+        return data;
+    }
+    
     @RequestMapping("/pdfdownload.do")
     public void pdfDownload( HttpServletRequest request, HttpServletResponse response )
     {

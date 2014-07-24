@@ -70,38 +70,22 @@
     	if( dataCache[month] )
     		return;
     	
-    	//ajax로 해당 월의 데이터를 받아온다.
-    	//$http.get('/someUrl', { responseType : "json" }).
-        //success(function(data, status, headers, config) {
-        //    onRecvData( month, data );
-        //}).
-        //error(function(data, status, headers, config) {
-        //    alert( "Error" );
-        //});
-    	
-    	//테스트를 위해 가짜 데이터 생성
-    	var data = testData( month );
-    	onRecvData( month , data );
-    }
-     
-    //ajax로 데이터가 도착하면 여기서 처리함
-    function onRecvData( month, data )
-    {
-    	dataCache[month] = data;
-    	$('#calendar').fullCalendar( "addEventSource", data );
+    	$http.get('../../getCalendarData.do', { params : { month : month }, responseType : "json" }).
+        success(function(data, status, headers, config)
+        {
+            onRecvData( month, data );
+        }).
+        error(function(data, status, headers, config)
+        {
+            alert( "Error" );
+        });
     }
     
-    function testData( month )
+    function onRecvData( month, data )
     {
-    	var events = [
-    	    { start : month + "-01", title : "10,000원", fee : 10000, feeAcc : 23456, amount : 23456, level : 1 },
-    	    { start : month + "-03", title : "20,000원", fee : 20000, feeAcc : 67893, amount : 45678, level : 2 },
-    	    { start : month + "-10", title : "30,000원", fee : 30000, feeAcc : 67893, amount : 45678, level : 3 },
-    	    { start : month + "-17", title : "40,000원", fee : 40000, feeAcc : 67893, amount : 45678, level : 4 },
-    	    { start : month + "-23", title : "50,000원", fee : 50000, feeAcc : 67893, amount : 45678, level : 5 },
-    	    { start : month + "-28", title : "50,000원", fee : 60000, feeAcc : 67893, amount : 45678, level : 6 },
-    	];
-    	return events;
+    	console.log( data );
+    	dataCache[month] = data;
+    	$('#calendar').fullCalendar( "addEventSource", data );
     }
     </script>
 </body>
