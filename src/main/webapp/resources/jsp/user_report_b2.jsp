@@ -3,7 +3,7 @@
 <%@page import="org.codehaus.jackson.map.ObjectMapper"%>
 <%
 //
-//DB에서 data 쿼리 필요
+//날짜와 사용자 정보를 파라미터로 받아 DB에서 data 쿼리 필요
 //
 //테스트를 위해 가짜 차트 데이터 생성
 ArrayList chartData = new ArrayList();

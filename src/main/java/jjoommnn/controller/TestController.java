@@ -28,6 +28,8 @@ public class TestController
     @ResponseBody
     public List getCalendarData( @RequestParam String month )
     {
+        //파라미터로 날짜와 사용자 정보를 받아 DB 쿼리 필요
+        
         List data = new ArrayList();
         
         //테스트 용으로 가짜 데이터 생성
@@ -62,6 +64,8 @@ public class TestController
     		return;
     	}
     	
+    	//page를 호출하기 위한 날짜와 사용자 정보도 파라미터로 받아서 처리해야 함
+    	
         try
         {
             File imgFile = makeScreenShot( page );
@@ -95,6 +99,7 @@ public class TestController
         }
     }
     
+    //아래 설정값들은 서버 환경에 따라 적절하게 조정해야 함
     private static final String PAGERES_PATH = "C:\\Users\\joomin\\AppData\\Roaming\\npm\\pageres.cmd";
     private static final String BASE_URL = "localhost:8080/testforhems/resources/jsp/";
     private static final String IMAGE_SIZE = "595x842";
@@ -102,6 +107,7 @@ public class TestController
     
     private File makeScreenShot( String page ) throws Exception
     {
+        //윈도우 환경에서 호출하는 것으로 가정
         String line = "cmd /C start" + " " +
                       PAGERES_PATH + " " + BASE_URL + page + " " + IMAGE_SIZE;
         
@@ -116,7 +122,7 @@ public class TestController
         System.out.println( "Done : " + exitValue );
         
         String file = BASE_URL + page + "-" + IMAGE_SIZE + ".png";
-        file = file.replaceAll( "[/:]", "!" );
+        file = file.replaceAll( "[/:]", "!" ); //생성되는 파일 이름은 / 대신에 ! 으로 교체되어 나타남
         
         return new File( DIR_PATH + file );
     }
