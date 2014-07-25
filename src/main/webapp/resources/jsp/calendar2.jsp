@@ -52,22 +52,7 @@
             	if( !data )
             		return;
             	
-            	var mark = $( '<div style="float:right;width:15px;height:15px"></div>' );
-            	
-            	if( data.level <= 1 )
-            		mark.css( "background-color", "#0CA1D9" );
-                else if( data.level <= 2 )
-                	mark.css( "background-color", "#17C5B9" );
-                else if( data.level <= 3 )
-                	mark.css( "background-color", "#94C85A" );
-                else if( data.level <= 4 )
-                	mark.css( "background-color", "#D8BD56" );
-                else if( data.level <= 5 )
-                	mark.css( "background-color", "#EC9641" );
-                else
-                	mark.css( "background-color", "#C43233" );
-            	
-            	numDiv.after( mark );
+            	$( cell.children( "div" )[0] ).append( '<div style="float:right;margin-top:15px">' + data.title + '</div>' );
             	
             	cell.tooltip({
                     items : "td",
