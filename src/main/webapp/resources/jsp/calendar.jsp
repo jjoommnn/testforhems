@@ -35,30 +35,51 @@
                 var month = $('#calendar').fullCalendar( "getDate" ).format( "YYYY-MM" );
                 getAndAddData( $http, month );
             },
-            eventRender: function( event, element )
+            'dayRender' : function( date, cell )
             {
-            	if( event.level <= 1 )
-            	    element.css( "background-color", "#0CA1D9" );
-            	else if( event.level <= 2 )
-            		element.css( "background-color", "#17C5B9" );
-            	else if( event.level <= 3 )
-                    element.css( "background-color", "#94C85A" );
-            	else if( event.level <= 4 )
-                    element.css( "background-color", "#D8BD56" );
-            	else if( event.level <= 5 )
-                    element.css( "background-color", "#EC9641" );
-            	else
-                    element.css( "background-color", "#C43233" );
+            	var numDiv = $( ".fc-day-number", cell ).css( "float", "left" );
             	
-            	element.tooltip({
-                	items : "div",
+            	var month = $('#calendar').fullCalendar( "getDate" ).format( "YYYY-MM" );
+            	var dayMonth = date.format( "YYYY-MM" );
+            	if( month != dayMonth )
+            		return;
+            	
+            	if( !(dataCache[month]) )
+            		return;
+            	
+            	var day = date.format( "YYYY-MM-DD" );
+            	var data = dataCache[month][day];
+            	if( !data )
+            		return;
+            	
+            	var mark = $( '<div style="float:right;width:15px;height:15px"></div>' );
+            	
+            	if( data.level <= 1 )
+            		mark.css( "background-color", "#0CA1D9" );
+                else if( data.level <= 2 )
+                	mark.css( "background-color", "#17C5B9" );
+                else if( data.level <= 3 )
+                	mark.css( "background-color", "#94C85A" );
+                else if( data.level <= 4 )
+                	mark.css( "background-color", "#D8BD56" );
+                else if( data.level <= 5 )
+                	mark.css( "background-color", "#EC9641" );
+                else
+                	mark.css( "background-color", "#C43233" );
+            	
+            	numDiv.after( mark );
+            	
+            	$( cell.children( "div" )[0] ).append( "<div>" + data.title + "</div>" );
+            	
+            	cell.tooltip({
+                    items : "td",
                     content: function()
                     {
-                    	return "<div>" + event.start.format( "YYYY-MM-DD" ) + "</div>" + 
-                    	       "<div>누진" + event.level + "단계</div>" +
-                    	       "<div>누적사용량:" + $parse( event.amount + "|number" )() + "kWh</div>" +
-                    	       "<div>당일요금:" + $parse( event.fee + "|number" )() + "원</div>" +
-                    	       "<div>누적요금:" + $parse( event.feeAcc + "|number" )() + "원</div>";
+                        return "<div>" + day + "</div>" + 
+                               "<div>누진" + data.level + "단계</div>" +
+                               "<div>누적사용량:" + $parse( data.amount + "|number" )() + "kWh</div>" +
+                               "<div>당일요금:" + $parse( data.fee + "|number" )() + "원</div>" +
+                               "<div>누적요금:" + $parse( data.feeAcc + "|number" )() + "원</div>";
                     }
                 });
             }
@@ -83,9 +104,8 @@
     
     function onRecvData( month, data )
     {
-    	console.log( data );
     	dataCache[month] = data;
-    	$('#calendar').fullCalendar( "addEventSource", data );
+    	$('#calendar').fullCalendar( 'render' );
     }
     </script>
 </body>

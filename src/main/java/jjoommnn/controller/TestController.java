@@ -26,11 +26,11 @@ public class TestController
 {
     @RequestMapping("/getCalendarData.do")
     @ResponseBody
-    public List getCalendarData( @RequestParam String month )
+    public HashMap getCalendarData( @RequestParam String month )
     {
         //파라미터로 날짜와 사용자 정보를 받아 DB 쿼리 필요
         
-        List data = new ArrayList();
+        HashMap data = new HashMap();
         
         //테스트 용으로 가짜 데이터 생성
         Random rnd = new Random();
@@ -47,7 +47,7 @@ public class TestController
             item.put( "amount", new Float( rnd.nextInt( 90000 ) + 1 ) );
             item.put( "level", new Integer( i / 5 + 1 ) );
             
-            data.add( item );
+            data.put( month + "-" + is, item );
         }
         //테스트 용으로 가짜 데이터 생성
         
