@@ -65,9 +65,9 @@
                     {
                         return "<div>" + day + "</div>" + 
                                "<div>누진" + data.level + "단계</div>" +
-                               "<div>누적사용량:" + $parse( data.amount + "|number" )() + "kWh</div>" +
-                               "<div>당일요금:" + $parse( data.fee + "|number" )() + "원</div>" +
-                               "<div>누적요금:" + $parse( data.feeAcc + "|number" )() + "원</div>";
+                               "<div>누적사용량:" + $parse( "amount|number" )(data) + "kWh</div>" +
+                               "<div>당일요금:" + $parse( "fee|number" )(data) + "원</div>" +
+                               "<div>누적요금:" + $parse( "feeAcc|number" )(data) + "원</div>";
                     }
                 });
             }
