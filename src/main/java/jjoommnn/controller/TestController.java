@@ -47,6 +47,8 @@ public class TestController
             item.put( "amount", new Float( rnd.nextInt( 90000 ) + 1 ) );
             item.put( "level", new Integer( i / 5 + 1 ) );
             
+            if( ii == 25 ) item.put( "isReadDay", new Boolean( true ) ); //검침일인 경우에 표시
+            
             data.put( month + "-" + is, item );
         }
         //테스트 용으로 가짜 데이터 생성

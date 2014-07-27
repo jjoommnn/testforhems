@@ -52,6 +52,11 @@
             	if( !data )
             		return;
             	
+            	//검침일 표시
+                if( data.isReadDay )
+                	numDiv.after(
+                        '<div style="width:15px;height:15px;float:right;background-color:black"></div>' );
+            	
             	$( cell.children( "div" )[0] ).append( '<div style="float:right;margin-top:15px">' + data.title + '</div>' );
             	
             	cell.tooltip({
